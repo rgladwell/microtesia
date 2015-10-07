@@ -1,4 +1,4 @@
-# Microtesia
+# Microtesia [![Build Status](https://travis-ci.org/rgladwell/microtesia.svg)](https://travis-ci.org/rgladwell/microtesia)
 
 [Microdata](http://www.w3.org/TR/microdata/) parsing library for
 Scala.
