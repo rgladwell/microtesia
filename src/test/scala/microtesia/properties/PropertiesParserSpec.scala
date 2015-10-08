@@ -4,25 +4,24 @@
 
 package microtesia.properties
 
-import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
-import microtesia.{SaxElement, InvalidMicrodata, MicrodataString}
-import scala.xml._
+import microtesia.{SaxElement, InvalidMicrodata, MicrodataString, MicrodataMatchers}
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
+import scala.xml._
 
-object PropertiesParserSpec extends Specification with Mockito {
+object PropertiesParserSpec extends Specification with MicrodataMatchers {
 
   "PropertiesParser should" >> {
 
     class TestStringPropertyParsing extends UndefinedPropertyParsing[Node]
-                                                  with PropertiesParser[Node]
-                                                  with StringPropertyParsing[Node]
-                                                  with Scope
+                                              with PropertiesParser[Node]
+                                              with StringPropertyParsing[Node]
+                                              with Scope
 
     "parse properties" in new TestStringPropertyParsing {
       val html = XML.loadString("""<span itemprop="name">Frank</span>""")
-      parseProperties(SaxElement(html,html)) must beRight(Map("name" -> Seq(MicrodataString("Frank"))))
+      parseProperties(SaxElement(html,html)) must beRight(haveProperty("name" -> MicrodataString("Frank")))
     }
 
     "report parse error on property without name" in new TestStringPropertyParsing {
@@ -33,8 +32,8 @@ object PropertiesParserSpec extends Specification with Mockito {
 
     "parse properties with multiple names" in new TestStringPropertyParsing {
       val html = XML.loadString("""<span itemprop="name nickname">Frank</span>""")
-      parseProperties(SaxElement(html,html)) must beRight(Map("name" -> Seq(MicrodataString("Frank")),
-                                              "nickname" -> Seq(MicrodataString("Frank"))))
+      parseProperties(SaxElement(html,html)) must beRight(haveProperty("name" -> MicrodataString("Frank"))
+                                              and haveProperty("nickname" -> MicrodataString("Frank")))
     }
 
   }

@@ -9,9 +9,9 @@ import org.specs2.specification.Scope
 import org.specs2.mock.Mockito
 import microtesia.properties.{PropertiesParser, PropertyParsing}
 import scala.xml._
-import urimplicit._
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
 import microtesia.properties.UndefinedPropertyParsing
+import urimplicit._
 
 object ItemsParserSpec extends Specification with Mockito {
 
@@ -38,12 +38,12 @@ object ItemsParserSpec extends Specification with Mockito {
 
     "parse items" in new TestSaxItemsParser {
       val html = XML.loadString("""<span itemscope="true">Frank</span>""")
-      parseItems(SaxElement(html, html)) must beRight(Seq(MicrodataItem(properties = mockProperties)))
+      parseItems(SaxElement(html, html)) must beRight(contain(MicrodataItem(properties = mockProperties)))
     }
 
     "parse items nested" in new TestSaxItemsParser {
       val html = XML.loadString("""<div><span itemscope="true">Frank</span></div>""")
-      parseItems(SaxElement(html, html)) must beRight(Seq(MicrodataItem(properties = mockProperties)))
+      parseItems(SaxElement(html, html)) must beRight(contain(MicrodataItem(properties = mockProperties)))
     }
 
     "parse multiple items" in new TestSaxItemsParser {
@@ -55,12 +55,12 @@ object ItemsParserSpec extends Specification with Mockito {
 
     "parse item types" in new TestSaxItemsParser {
       val html = XML.loadString("""<span itemscope="true" itemtype="http://example.org">Frank</span>""")
-      parseItems(SaxElement(html, html)) must beRight(Seq(MicrodataItem(Some(URI("http://example.org")), mockProperties)))
+      parseItems(SaxElement(html, html)) must beRight(contain{ (i: MicrodataItem) => i.itemtype must beSome(URI("http://example.org")) })
     }
 
     "parse item ids" in new TestSaxItemsParser {
       val html = XML.loadString("""<span itemscope="true" itemid="http://example.org">Frank</span>""")
-      parseItems(SaxElement(html, html)) must beRight(Seq(MicrodataItem(properties = mockProperties, id = Some(URI("http://example.org")))))
+      parseItems(SaxElement(html, html)) must beRight(contain{ (i: MicrodataItem) => i.id must beSome(URI("http://example.org")) })
     }
 
     "reports errors during property parsing" in new TestSaxItemsParser {
@@ -84,7 +84,7 @@ object ItemsParserSpec extends Specification with Mockito {
       mockParseProperties.apply(SaxElement(reference, html)) returns Right(referenceProperties)
 
       // then
-      parseItems(SaxElement(item, html)) must beRight(Seq(MicrodataItem(properties = referenceProperties)))
+      parseItems(SaxElement(item, html)) must beRight(contain(MicrodataItem(properties = referenceProperties)))
     }
 
     "parse microdata with multiple item references" in new TestSaxItemsParser {
@@ -102,7 +102,7 @@ object ItemsParserSpec extends Specification with Mockito {
       mockParseProperties.apply(SaxElement(b, html)) returns Right(bProperties)
 
       // then
-      parseItems(SaxElement(item, html)) must beRight(Seq(MicrodataItem(properties = Map("name" -> Seq(MicrodataString("Amanda"), MicrodataString("Barry"))))))
+      parseItems(SaxElement(item, html)) must beRight(contain(MicrodataItem(properties = Map("name" -> Seq(MicrodataString("Amanda"), MicrodataString("Barry"))))))
     }
 
     "report errors parsing item references properties" in new TestSaxItemsParser {
