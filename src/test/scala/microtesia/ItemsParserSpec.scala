@@ -7,10 +7,9 @@ package microtesia
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 import org.specs2.mock.Mockito
-import microtesia.properties.{PropertiesParser, PropertyParsing}
+import microtesia.properties.{PropertiesParser, PropertyParsing, UndefinedPropertyParsing}
 import scala.xml._
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
-import microtesia.properties.UndefinedPropertyParsing
 import urimplicit._
 
 object ItemsParserSpec extends Specification with Mockito {

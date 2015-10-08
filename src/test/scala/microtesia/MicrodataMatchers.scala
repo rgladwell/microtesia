@@ -15,7 +15,6 @@ trait MicrodataMatchers extends Matchers with MustMatchers {
   def haveProperty(p: (String, MicrodataValue)): Matcher[Properties] = havePropertyMatching((p._1, ===(p._2)))
 
   def havePropertyMatching(p: (String, Matcher[MicrodataValue])): Matcher[Properties] = { properties: Properties =>
-    properties must haveKey(p._1)
     properties(p._1) must contain(p._2)
   }
 

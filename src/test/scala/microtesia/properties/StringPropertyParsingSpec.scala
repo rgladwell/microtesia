@@ -5,10 +5,9 @@
 package microtesia.properties
 
 import org.specs2.mutable.Specification
-import scala.xml.XML
-import microtesia.{SaxElement, MicrodataString}
 import org.specs2.specification.Scope
-import scala.xml.Node
+import microtesia.{SaxElement, MicrodataString}
+import scala.xml._
 
 object StringPropertyParsingSpec extends Specification {
 

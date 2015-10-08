@@ -7,8 +7,7 @@ package microtesia
 import java.io.Reader
 import java.net.URI
 import scala.xml._
-import microtesia.properties.{PropertiesParser}
-import microtesia.properties.UndefinedPropertyParsing
+import microtesia.properties.{PropertiesParser, UndefinedPropertyParsing}
 
 private class SaxMicrodataParser extends UndefinedPropertyParsing[Node] with MicrodataParser[Node] {
   this: Sax with ItemsParser[Node] =>

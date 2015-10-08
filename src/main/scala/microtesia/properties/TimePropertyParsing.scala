@@ -9,15 +9,11 @@ import microtesia.{MicrodataString, Tag}
 
 private[microtesia] trait TimePropertyParsing[N] extends PropertyParsing[N] {
 
-  abstract override def parseProperty: PropertyParser[N] = super.parseProperty.orElse{
+  abstract override def parseProperty: PropertyParser[N] = super.parseProperty.orElse {
 
-    case element @ Tag("time") => {
-
-      if (element.attr("datetime").isDefined)  Right(MicrodataString(element.attr("datetime").get))
-      else if (element.value.nonEmpty)         Right(MicrodataString(element.value))
-      else                                     Right(MicrodataString(""))
-
-    }
+    case element @ Tag("time") if (element.attr("datetime").isDefined) => Right(MicrodataString(element.attr("datetime").get))
+    case element @ Tag("time") if (element.value.nonEmpty) => Right(MicrodataString(element.value))
+    case element @ Tag("time") => Right(MicrodataString(""))
 
   }
 

@@ -7,8 +7,7 @@ package microtesia.properties
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 import org.specs2.mock.Mockito
-import microtesia.{Element, SaxElement, InvalidMicrodata, MicrodataItem, Parsed}
-import microtesia.ItemsParser
+import microtesia.{Element, SaxElement, InvalidMicrodata, ItemsParser, MicrodataItem, Parsed}
 import scala.xml._
 
 object NestedItemPropertyParsingSpec extends Specification with Mockito {

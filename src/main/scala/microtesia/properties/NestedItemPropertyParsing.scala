@@ -4,8 +4,7 @@
 
 package microtesia.properties
 
-import microtesia.Tag
-import microtesia.ItemsParser
+import microtesia.{ItemsParser, Tag}
 
 private[microtesia] trait NestedItemPropertyParsing[N] extends PropertyParsing[N] {
   this: ItemsParser[N] =>

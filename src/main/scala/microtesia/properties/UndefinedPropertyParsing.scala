@@ -6,6 +6,6 @@ package microtesia.properties
 
 private[microtesia] class UndefinedPropertyParsing[N] extends PropertyParsing[N] {
 
-  override def parseProperty: PropertyParser[N] = Undefined
+  override def parseProperty: PropertyParser[N] = undefinedPropertyParser
 
 }

@@ -8,6 +8,6 @@ package object properties {
 
   private[microtesia] type PropertyParser[N] = PartialFunction[Element[N], Parsed[MicrodataValue, N]]
 
-  private[properties] val Undefined: PartialFunction[Any, Nothing] = Map.empty
+  private[properties] val undefinedPropertyParser: PartialFunction[Any, Nothing] = Map.empty
 
 }
