@@ -1,11 +1,14 @@
 language: scala
 scala:
-  - 2.10.4
-  - 2.11.7
+- 2.10.4
+- 2.11.7
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION test
+- sbt ++$TRAVIS_SCALA_VERSION coverage test codacyCoverage
 jdk:
-  - oraclejdk8
+- oraclejdk8
 notifications:
   email:
-    - ricardo@gladwell.me
+  - ricardo@gladwell.me
+env:
+  global:
+    secure: QuGYF+oU2dBhwboJEdCLj9vh1u5ufQY+vHRbee+UU5iAhRiPLur/hcIoyae+0bY+LICMqOawm7/6HfK0iOb/yBXkiao1HvsjT//nhrw42UwsVn2ymw8deYs0ei+mRygOlqvkui55P7ZpLFvBJ7wCDy1loiPp6kKTC4i/8CB/RFHnKgwiOfMm2bKGVMasTa3Oi4T0gYGclRuYphnSAroS08MDg/qgty4CBvWJxVcuf4IWF7guMc0xaKJgBiBbjAgDOeasDEHGDXe0joGBC+uL6ZrQ74WstvEdzE1PqQeDUVt3U3H9bJwLA/8x3i32PagUz4DJfF8vg0/msQecv4HS4UAAN2EwLYdmd7T2CqQTfUSmtHe0s2LTz90StKEeq/R9pAraZIS4HmondMkw6x246XJwCMdLFTBpruyyqjr475JjDmYUKAqHTPF5FPxKqUfaWthRDIi1ypkcpjjKSSq58Jkg9RBqsy0Pp05d0mB/Dqes3ElYGiVOjMSc4/DY4vGQFHvYNwjga+mPEYHYlgyXt/sYEpqUJkyvl3yZCT7yBnaS/jl+6r/SKvLnRearcFjmBmQLOmIFH22kxLrEbGBGbbMK7ai2k6uJC8xvgMbMuLHX4/rg4nYyTOLqJXBwUBDIKPN7oOeIuUNqX+rn9yVd+7Ym46HjFPcggJuNsPFIlnI=
