@@ -51,3 +51,11 @@ pomExtra := (
       <url>https://gladwell.me</url>
     </developer>
   </developers>)
+
+site.settings
+
+ghpages.settings
+
+git.remoteRepo := "git@github.com:rgladwell/microtesia.git"
+
+site.includeScaladoc()

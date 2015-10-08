@@ -3,7 +3,7 @@ scala:
 - 2.10.4
 - 2.11.7
 script:
-- sbt ++$TRAVIS_SCALA_VERSION coverage test codacyCoverage
+- sbt -Dgithub.token=$GH_TOKEN ++$TRAVIS_SCALA_VERSION coverage test codacyCoverage
 jdk:
 - oraclejdk8
 notifications:

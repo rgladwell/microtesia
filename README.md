@@ -20,7 +20,7 @@ scala> parse("""<div itemscope itemtype="http://schema.org/Movie"><h1 itemprop="
 res0: Either[microtesia.InvalidMicrodata[scala.xml.Node],microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(Some(http://schema.org/Movie),Map(name -> List(MicrodataString(Avatar))),None))))
 ```
 
-See the [API reference](http://rgladwell.github.io/microtesia) for
+See the [API reference](http://rgladwell.github.io/microtesia/latest/api) for
 more information.
 
 ## License
