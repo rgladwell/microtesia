@@ -6,7 +6,7 @@ Scala.
 To install add the following line to your SBT configuration:
 
 ```
-libraryDependencies += "me.gladwell" %% "microtesia" % "0.1"
+libraryDependencies += "me.gladwell.microtesia" %% "microtesia" % "0.1"
 ```
 
 To use simply put the Microtesia API in scope and call the `parse`
