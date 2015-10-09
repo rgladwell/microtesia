@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Microtesia by rgladwell</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Microtesia</h1>
+        <p>Simple microdata parsing library for Scala.</p>
+
+        <p class="view"><a href="https://github.com/rgladwell/microtesia">View the Project on GitHub <small>rgladwell/microtesia</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/rgladwell/microtesia/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rgladwell/microtesia/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rgladwell/microtesia">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="microtesia-----" class="anchor" href="#microtesia-----" aria-hidden="true"><span class="octicon octicon-link"></span></a>Microtesia <a href="https://travis-ci.org/rgladwell/microtesia"><img src="https://travis-ci.org/rgladwell/microtesia.svg" alt="Build Status"></a> <a href="https://www.codacy.com/app/ricardo_3/microtesia"><img src="https://api.codacy.com/project/badge/1af50d2ea130484a918a44a5ce0d1ce0" alt="Codacy Badge"></a> <a href="https://bintray.com/rgladwell/maven/microtesia/_latestVersion"> <img src="https://api.bintray.com/packages/rgladwell/maven/microtesia/images/download.svg" alt="Download"> </a>
+</h1>
+
+<p><a href="http://www.w3.org/TR/microdata/">Microdata</a> parsing library for
+Scala.</p>
+
+<p>To install add the following line to your SBT configuration:</p>
+
+<pre><code>libraryDependencies += "me.gladwell.microtesia" %% "microtesia" % "0.1"
+</code></pre>
+
+<p>To use simply put the Microtesia API in scope and call the <code>parse</code>
+method as follows:</p>
+
+<div class="highlight highlight-source-scala"><pre>scala<span class="pl-k">&gt;</span> <span class="pl-k">import</span> <span class="pl-v">microtesia.</span><span class="pl-v">_</span>
+<span class="pl-k">import</span> <span class="pl-v">microtesia.</span><span class="pl-v">_</span>
+
+scala<span class="pl-k">&gt;</span> parse(<span class="pl-s"><span class="pl-pds">"""</span>&lt;div itemscope itemtype="http://schema.org/Movie"&gt;&lt;h1 itemprop="name"&gt;Avatar&lt;/h1&gt;&lt;/div&gt;<span class="pl-pds">"""</span></span>)
+res0<span class="pl-k">:</span> <span class="pl-en">Either</span>[microtesia.<span class="pl-en">InvalidMicrodata</span>[scala.xml.<span class="pl-en">Node</span>],microtesia.<span class="pl-en">MicrodataDocument</span>] <span class="pl-k">=</span> <span class="pl-en">Right</span>(<span class="pl-en">MicrodataDocument</span>(<span class="pl-en">List</span>(<span class="pl-en">MicrodataItem</span>(<span class="pl-en">Some</span>(http<span class="pl-k">:</span><span class="pl-c">//schema.org/Movie),Map(name -&gt; List(MicrodataString(Avatar))),None))))</span></pre></div>
+
+<p>See the <a href="http://rgladwell.github.io/microtesia/latest/api">API reference</a> for
+more information.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rgladwell">rgladwell</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
