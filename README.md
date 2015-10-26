@@ -6,7 +6,7 @@ Scala.
 To install add the following line to your SBT configuration:
 
 ```
-libraryDependencies += "me.gladwell.microtesia" %% "microtesia" % "0.1"
+libraryDependencies += "me.gladwell.microtesia" %% "microtesia" % "0.2"
 ```
 
 To use simply put the Microtesia API in scope and call the `parse`
@@ -16,12 +16,28 @@ method as follows:
 scala> import microtesia._
 import microtesia._
 
-scala> parse("""<div itemscope itemtype="http://schema.org/Movie"><h1 itemprop="name">Avatar</h1></div>""")
-res0: Either[microtesia.InvalidMicrodata[scala.xml.Node],microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(Some(http://schema.org/Movie),Map(name -> List(MicrodataString(Avatar))),None))))
+scala> parse("""<div
+                  itemscope
+                  itemtype="http://schema.org/Movie">
+                    <h1 itemprop="name">Avatar</h1>
+                  </div>""")
+res0: Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
 ```
 
 See the [API reference](http://rgladwell.github.io/microtesia/latest/api) for
 more information.
+
+Once the HTML has been parsed, you can extract microdata values using for-comprehensions:
+
+```scala
+scala> for {
+         MicrodataItem(properties, _, _) <- res0.right.get.items
+         MicrodataProperty("name", MicrodataString(string)) <- properties
+       } yield string
+res1: Seq[String] = List(Avatar)
+```
+
+See [MicrodataValueSpec.scala](https://github.com/rgladwell/microtesia/tree/master/src/test/scala/MicrodataValueSpec.scala) for more examples of microdata for-comprehensions.
 
 ## License
 

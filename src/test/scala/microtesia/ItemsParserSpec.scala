@@ -16,11 +16,11 @@ object ItemsParserSpec extends Specification with Mockito {
 
   "ItemsParser should" >> {
 
-    val mockProperties = Map("name" -> Seq(MicrodataString("Frank")))
+    val mockProperties = Seq("name" -> MicrodataString("Frank"))
 
      trait MockPropertiesParser extends PropertiesParser[Node] {
       this: PropertyParsing[Node] =>
-      val mockParseProperties = mock[(Element[Node]) => Parsed[Properties, Node]]
+      val mockParseProperties = mock[(Element[Node]) => Parsed[Seq[MicrodataProperty], Node]]
       override def parseProperties(element: Element[Node]) = mockParseProperties(element)
       mockParseProperties.apply(any[Element[Node]]) returns Right(mockProperties)
     }
@@ -79,7 +79,7 @@ object ItemsParserSpec extends Specification with Mockito {
       val item = XML.loadString("""<div itemscope="true" itemref="a"></div>""")
       val reference = XML.loadString("""<p id="a">Name: <span itemprop="name">Amanda</span></p>""")
 
-      val referenceProperties = Map("name" -> Seq(MicrodataString("Barry")))
+      val referenceProperties = Seq("name" -> MicrodataString("Barry"))
       mockParseProperties.apply(SaxElement(reference, html)) returns Right(referenceProperties)
 
       // then
@@ -95,13 +95,13 @@ object ItemsParserSpec extends Specification with Mockito {
       val a = XML.loadString("""<p id="a">Name: <span itemprop="name">Amanda</span></p>""")
       val b = XML.loadString("""<p id="b">Name: <span itemprop="name">Barry</span></p>""")
 
-      val aProperties = Map("name" -> Seq(MicrodataString("Amanda")))
-      val bProperties = Map("name" -> Seq(MicrodataString("Barry")))
+      val aProperties = Seq("name" -> MicrodataString("Amanda"))
+      val bProperties = Seq("name" -> MicrodataString("Barry"))
       mockParseProperties.apply(SaxElement(a, html)) returns Right(aProperties)
       mockParseProperties.apply(SaxElement(b, html)) returns Right(bProperties)
 
       // then
-      parseItems(SaxElement(item, html)) must beRight(contain(MicrodataItem(properties = Map("name" -> Seq(MicrodataString("Amanda"), MicrodataString("Barry"))))))
+      parseItems(SaxElement(item, html)) must beRight(contain(MicrodataItem(properties = Seq(("name" -> MicrodataString("Amanda")), ("name" -> MicrodataString("Barry"))))))
     }
 
     "report errors parsing item references properties" in new TestSaxItemsParser {

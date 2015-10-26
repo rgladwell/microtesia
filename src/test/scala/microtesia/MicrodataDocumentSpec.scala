@@ -11,7 +11,10 @@ object MicrodataDocumentSpec extends Specification {
   
   "MicrodataDocument should" >> {
 
-    val person = MicrodataItem(Some(URI("http://example.org/person")), Map("name" -> Seq(MicrodataString("Frank"))))
+    val person = MicrodataItem(
+      itemtype   = Some(URI("http://example.org/person")),
+      properties = Seq("name" -> MicrodataString("Frank"))
+    )
 
     "find items based on item type" >> {
       val document = MicrodataDocument(Seq(person))
@@ -29,7 +32,10 @@ object MicrodataDocumentSpec extends Specification {
     }
 
     "find nested items" >> {
-      val organisation = MicrodataItem(Some(URI("http://example.org/org")), Map("people" -> Seq(person)))
+      val organisation = MicrodataItem(
+        itemtype   = Some(URI("http://example.org/org")),
+        properties = Seq("people" -> person)
+      )
       val document = MicrodataDocument(Seq(organisation))
 
       document.findItems(URI("http://example.org/person")) must contain(person)

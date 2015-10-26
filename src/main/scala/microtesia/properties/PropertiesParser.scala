@@ -5,12 +5,12 @@
 package microtesia.properties
 
 import scala.xml.Node
-import microtesia.{Element, InvalidMicrodata, Parsed, Properties}
+import microtesia.{Element, InvalidMicrodata, Parsed, MicrodataProperty}
 
 private[microtesia] trait PropertiesParser[N] {
   this: PropertyParsing[N] =>
 
-  def parseProperties(element: Element[N]): Parsed[Properties, N] = {
+  def parseProperties(element: Element[N]): Parsed[Seq[MicrodataProperty], N] = {
 
     def validatePropertyNames(p: Option[String]): Parsed[Seq[String], N] =
       p match {
@@ -29,13 +29,12 @@ private[microtesia] trait PropertiesParser[N] {
                                                        names <- validatePropertyNames(element.attr("itemprop")).right
                                                        value <- parseProperty(element).right
                                                      } yield(
-                                                       names.map{ (_, Seq(value)) }
+                                                       names.map{ MicrodataProperty(_, value) }
                                                      )
-                                                     .toMap
 
       case _                                       => element
                                                         .childMap { parseProperties( _ ) }
-                                                        .traverse[Properties](Map())(_ merge _)
+                                                        .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
 
     }
 

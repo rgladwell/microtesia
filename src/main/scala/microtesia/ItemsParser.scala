@@ -24,9 +24,9 @@ private[microtesia] trait ItemsParser[N] {
   def parseItem(element: Element[N]): Parsed[MicrodataItem, N] = {
     val properties = element
                        .childMap{ parseProperties(_) }
-                       .traverse[Properties](Map())(_ merge _)
+                       .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
 
-    val props = Seq(properties, parseItemReferences(element)).traverse[Properties](Map())(_ merge _)
+    val props = Seq(properties, parseItemReferences(element)).traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
 
     props
       .right
@@ -39,7 +39,7 @@ private[microtesia] trait ItemsParser[N] {
       }
   }
 
-  private def parseItemReferences(element: Element[N]): Parsed[Properties, N] =
+  private def parseItemReferences(element: Element[N]): Parsed[Seq[MicrodataProperty], N] =
     element.attr("itemref")
       .map {
         _.split(" +")
@@ -47,12 +47,12 @@ private[microtesia] trait ItemsParser[N] {
         .map {
           parseItemReference(_, element)
         }
-        .traverse[Properties](Map())(_ merge _)
+        .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
       }
-    .getOrElse(Right(Map()))
+    .getOrElse(Right(Seq()))
 
-  private def parseItemReference(id: String, element: Element[N]): Parsed[Properties, N] = {
-    element.doc.findById(id).map { parseProperties(_) }.getOrElse(Right(Map()))
+  private def parseItemReference(id: String, element: Element[N]): Parsed[Seq[MicrodataProperty], N] = {
+    element.doc.findById(id).map { parseProperties(_) }.getOrElse(Right(Seq()))
   }
 
 }

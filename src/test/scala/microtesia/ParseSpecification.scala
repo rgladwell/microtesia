@@ -160,7 +160,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       "as an item" >> {
         microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
-          item.properties("band") must contain(beAnInstanceOf[MicrodataItem])
+          item.properties must havePropertyMatching("band" -> beAnInstanceOf[MicrodataItem])
         )}
       }
 

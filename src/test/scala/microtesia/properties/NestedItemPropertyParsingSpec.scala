@@ -7,7 +7,7 @@ package microtesia.properties
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 import org.specs2.mock.Mockito
-import microtesia.{Element, SaxElement, InvalidMicrodata, ItemsParser, MicrodataItem, Parsed}
+import microtesia._
 import scala.xml._
 
 object NestedItemPropertyParsingSpec extends Specification with Mockito {
@@ -36,7 +36,7 @@ object NestedItemPropertyParsingSpec extends Specification with Mockito {
     "parse items as properties" in new TestNestedItemPropertyParsing {
       // given
       val html = XML.loadString("""<span itemprop="name" itemscope="true">Frank</span>""")
-      val mockItem = MicrodataItem(properties = Map("testprop" -> Seq()))
+      val mockItem = MicrodataItem(properties = Seq("testprop" -> MicrodataString("")))
       mockParseItem.apply(any[Element[Node]]) returns Right(mockItem)
 
       // then

@@ -27,7 +27,7 @@ case class MicrodataDocument private[microtesia] (val items: Seq[MicrodataItem])
     }
 
     def recurse(items: Seq[MicrodataItem]): Seq[MicrodataItem] = {
-      val subvalues: Seq[MicrodataValue] = items.map{ _.properties.values }.flatten.flatten
+      val subvalues: Seq[MicrodataValue] = items.map{ _.properties.toMap.values }.flatten
       val subitems = subvalues.map{ isMicrodataItem(_) }.flatten
 
       if(subitems.isEmpty) items
