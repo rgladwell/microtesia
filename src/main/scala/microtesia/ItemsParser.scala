@@ -13,11 +13,11 @@ private[microtesia] trait ItemsParser[N] {
   def parseItems(element: Element[N]): Parsed[Seq[MicrodataItem], N] =
     element match {
 
-      case element if element.hasAttr("itemscope") => parseItem(element).right.map { Seq(_) }
+      case e if e.hasAttr("itemscope") => parseItem(element).right.map { Seq(_) }
 
-      case _                                  => element
-                                                   .childMap{ parseItems(_) }
-                                                   .traverse[Seq[MicrodataItem]](Nil)(_ ++ _)
+      case _                           => element
+                                            .childMap{ parseItems(_) }
+                                            .traverse[Seq[MicrodataItem]](Nil)(_ ++ _)
 
     }
 

@@ -25,16 +25,16 @@ private[microtesia] trait PropertiesParser[N] {
 
     element match {
 
-      case element if element.hasAttr("itemprop") => for {
-                                                       names <- validatePropertyNames(element.attr("itemprop")).right
-                                                       value <- parseProperty(element).right
-                                                     } yield(
-                                                       names.map{ MicrodataProperty(_, value) }
-                                                     )
+      case e if e.hasAttr("itemprop") => for {
+                                           names <- validatePropertyNames(e.attr("itemprop")).right
+                                           value <- parseProperty(e).right
+                                         } yield(
+                                           names.map{ MicrodataProperty(_, value) }
+                                         )
 
-      case _                                       => element
-                                                        .childMap { parseProperties( _ ) }
-                                                        .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
+      case _                          => element
+                                           .childMap { parseProperties( _ ) }
+                                           .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
 
     }
 

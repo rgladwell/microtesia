@@ -14,9 +14,10 @@ private class SaxMicrodataParser extends UndefinedPropertyParsing[Node] with Mic
 
   override def parse(input: Reader): Parsed[MicrodataDocument, Node] = {
     val document = html(input)
+
     parseItems(SaxElement(document, document))
-     .right
-     .map(MicrodataDocument(_))
+      .right
+      .map(MicrodataDocument(_))
   }
 
   private def html(input: Reader) = saxParser load input
