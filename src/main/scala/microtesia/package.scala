@@ -6,6 +6,9 @@ import java.io.StringReader
 import microtesia.properties._
 import scala.xml.Node
 import scala.language.implicitConversions
+import scala.io.Source
+import java.io.InputStreamReader
+import java.io.InputStream
 
 /**
  * Documentation for the Microtesia microdata parsing library.
@@ -59,5 +62,11 @@ package object microtesia {
    * If there was an error parsing the microdata it returns a `Left[InvalidMicrodata]`.
    */
   def parse(html: String): Either[InvalidMicrodata, MicrodataDocument] = parser parse new StringReader(html)
+
+  /**
+   * Parses HTML and returns a structured representation of the microdata items in the document.
+   * If there was an error parsing the microdata it returns a `Left[InvalidMicrodata]`.
+   */
+  def parse(input: InputStream): Either[InvalidMicrodata, MicrodataDocument] = parser parse new InputStreamReader(input)
 
 }

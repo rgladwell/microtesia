@@ -7,6 +7,8 @@ package microtesia
 import org.specs2.mutable.Specification
 import urimplicit._
 import scala.xml.Node
+import scala.io.Source
+import java.io.ByteArrayInputStream
 
 /**
  * Test fixtures taken from http://www.w3.org/TR/microdata/
@@ -336,6 +338,22 @@ object ParseSpecification extends Specification with MicrodataMatchers {
           item.properties must havePropertyMatching("band" -> beLike {
             case subitem: MicrodataItem => subitem.properties must haveProperty("size" -> MicrodataString("12"))
           })
+        )}
+      }
+
+    }
+
+    "parse sources and" >> {
+
+      val html = """<div itemscope>
+                      <p>My name is <span itemprop="name">Elizabeth</span>.</p>
+                    </div>"""
+
+      val microdata = parse(new ByteArrayInputStream(html.getBytes))
+
+      "return item name" >> {
+        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+          item.properties must haveProperty("name" -> MicrodataString("Elizabeth"))
         )}
       }
 
