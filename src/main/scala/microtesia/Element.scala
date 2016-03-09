@@ -13,7 +13,7 @@ private trait Element[N] {
   def attr(name: String): Option[String]
 
   def value: String
-  
+
   def name: String
 
   def findById(id: String): Option[Element[N]]
