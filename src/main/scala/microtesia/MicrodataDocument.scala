@@ -8,7 +8,7 @@ import java.net.URI
 
 /**
  * Representation of a document containing microdata mark-up. Returned by the
- * [[parse]] function. A [[MicrodataDocument]] can contain multiple
+ * [[parseMicrodata]] function. A [[MicrodataDocument]] can contain multiple
  * [[MicrodataItem]] instances which can be accessed via the `items` property
  * as follows:
  * 

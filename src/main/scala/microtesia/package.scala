@@ -15,14 +15,14 @@ import java.io.InputStream
  *
  * == Usage ==
  *
- * To use simply put the Microtesia API in scope and call the [[parse]]
- * method as follows:
+ * To use simply put the Microtesia API in scope and call the [[parseMicrodata]]
+ * function as follows:
  *
  * {{{
  * scala> import microtesia._
  * import microtesia._
  *
- * scala> parse("""&lt;div itemscope itemtype="http://schema.org/Movie">&lt;h1 itemprop="name">Avatar&lt;/h1>&lt;/div>""")
+ * scala> parseMicrodata("""&lt;div itemscope itemtype="http://schema.org/Movie">&lt;h1 itemprop="name">Avatar&lt;/h1>&lt;/div>""")
  * res0: Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
  * }}}
  */
@@ -61,12 +61,12 @@ package object microtesia {
    * Parses HTML and returns a structured representation of the microdata items in the document.
    * If there was an error parsing the microdata it returns a `Left[InvalidMicrodata]`.
    */
-  def parse(html: String): Either[InvalidMicrodata, MicrodataDocument] = parser parse new StringReader(html)
+  def parseMicrodata(html: String): Either[InvalidMicrodata, MicrodataDocument] = parser parse new StringReader(html)
 
   /**
    * Parses HTML and returns a structured representation of the microdata items in the document.
    * If there was an error parsing the microdata it returns a `Left[InvalidMicrodata]`.
    */
-  def parse(input: InputStream): Either[InvalidMicrodata, MicrodataDocument] = parser parse new InputStreamReader(input)
+  def parseMicrodata(input: InputStream): Either[InvalidMicrodata, MicrodataDocument] = parser parse new InputStreamReader(input)
 
 }

@@ -16,11 +16,11 @@ method as follows:
 scala> import microtesia._
 import microtesia._
 
-scala> parse("""<div
-                  itemscope
-                  itemtype="http://schema.org/Movie">
-                    <h1 itemprop="name">Avatar</h1>
-                  </div>""")
+scala> parseMicrodata("""<div
+                          itemscope
+                          itemtype="http://schema.org/Movie">
+                            <h1 itemprop="name">Avatar</h1>
+                          </div>""")
 res0: Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
 ```
 
@@ -55,4 +55,4 @@ You should have received a copy of the GNU Lesser General Public
 License along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
-Copyright 2015 [Ricardo Gladwell](http://gladwell.me).
+Copyright 2015-2016 [Ricardo Gladwell](http://gladwell.me).
