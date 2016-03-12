@@ -40,7 +40,14 @@ case class MicrodataItem(
   properties : Seq[MicrodataProperty],
   itemtype   : Option[URI] = None,
   id         : Option[URI] = None
-) extends MicrodataValue
+) extends MicrodataValue {
+
+  /**
+   * Utility helper to retrieve the item properties for a particular property name.
+   */
+  def apply(key: String): Seq[MicrodataValue] = for(p <- properties if p._1 == key) yield p._2
+
+}
 
 /**
  * Represents a microdata string value.

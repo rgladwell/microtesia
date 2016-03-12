@@ -28,6 +28,7 @@ libraryDependencies ++= Seq(
   "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2.1",
   "org.specs2" %% "specs2-core" % "3.6.5" % "test",
   "org.specs2" %% "specs2-mock" % "3.6.5" % "test",
+  "com.chuusai" %% "shapeless" % "2.3.0",
   "me.gladwell.urimplicit" %% "urimplicit" % "0.2" % "test"
 )
 

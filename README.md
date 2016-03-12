@@ -39,6 +39,30 @@ res1: Seq[String] = List(Avatar)
 
 See [MicrodataValueSpec.scala](https://github.com/rgladwell/microtesia/tree/master/src/test/scala/MicrodataValueSpec.scala) for more examples of microdata for-comprehensions.
 
+## Readers
+
+While you can use the for-comprehensions to write custom parsers, microtesia provides a `formats` API (based on [https://github.com/milessabin/shapeless](shapeless)) to automatically deserialise `MicrodataValue` instances into value types and case classes:
+
+```scala
+scala> import microtesia._
+import microtesia._
+
+scala> import formats._
+import formats._
+
+scala> case class Person(name: String, age: Int, adult: Boolean)
+defined class Person
+
+scala>  MicrodataItem(
+          Seq(
+            ("name", MicrodataString("hello")),
+            ("age", MicrodataString("13")),
+            ("adult", MicrodataString("true"))
+          )
+        ).convertTo[Person]
+res0: Person = Person(hello,13,true)
+```
+
 ## License
 
 This program is free software: you can redistribute it and/or modify

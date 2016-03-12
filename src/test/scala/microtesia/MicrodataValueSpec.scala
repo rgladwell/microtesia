@@ -55,12 +55,26 @@ object MicrodataValueSpec extends Specification {
       val names =
         for{
           MicrodataItem(properties, Some(Uri("http://example.org", _)), _) <- items
-          MicrodataProperty("name", MicrodataString(name)) <- properties
-        } yield name
+          MicrodataProperty("name", MicrodataString(value)) <- properties
+        } yield value
 
       names must contain("test2")
     }
 
+    "retrieve item properties" >> {
+      val items = MicrodataItem(Seq("name" -> MicrodataString("test")))
+      items("name") must_== Seq(MicrodataString("test"))
+    }
+
+    "retrieve multiple item property" >> {
+      val items = MicrodataItem(Seq("name" -> MicrodataString("test"), "name" -> MicrodataString("test2")))
+      items("name") must_== Seq(MicrodataString("test"), MicrodataString("test2"))
+    }
+
+    "do not retrieve non-existent item property" >> {
+      val items = MicrodataItem(Seq())
+      items("name") must be empty
+    }
 
   }
 
