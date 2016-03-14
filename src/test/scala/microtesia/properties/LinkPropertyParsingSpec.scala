@@ -20,7 +20,7 @@ object LinkPropertyParsingSpec extends Specification {
 
     "parse hyperlink elements" in new TestLinkPropertyParsing {
       val html = XML.loadString("""<a href="http://example.org">other</a>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "not parse non-hyperlink elements" in new TestLinkPropertyParsing {
@@ -30,17 +30,17 @@ object LinkPropertyParsingSpec extends Specification {
 
     "not parse empty hyperlink elements" in new TestLinkPropertyParsing {
       val html = XML.loadString("""<a/>""")
-      parseProperty(SaxElement(html,html)) must beLeft(beAnInstanceOf[InvalidMicrodata])
+      parseProperty(SaxElement(html,html)) must beFailedTry(beAnInstanceOf[InvalidMicrodata])
     }
 
     "parse area elements" in new TestLinkPropertyParsing {
       val html = XML.loadString("""<area href="http://example.org">other</area>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "parse link elements" in new TestLinkPropertyParsing {
       val html = XML.loadString("""<link href="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
   }

@@ -23,7 +23,7 @@ object CaseClassFormatSpec extends Specification {
           )
         )
 
-      caseClassFormat[Person, generic.Repr].read(microdata) must_== Right(Person("hello", 13, true))
+      caseClassFormat[Person, generic.Repr].read(microdata) must beSuccessfulTry(Person("hello", 13, true))
     }
 
     "convert attribute with multiple values to" >> {
@@ -40,15 +40,15 @@ object CaseClassFormatSpec extends Specification {
       val generic = LabelledGeneric[Person]
  
       "Seq" in {
-        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beRight.like { case p => p.nicknames must_== Seq("nick1", "nick2") }
+        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== Seq("nick1", "nick2") }
       }
   
       "List" in {
-        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beRight.like { case p => p.nicknames must_== List("nick1", "nick2") }
+        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== List("nick1", "nick2") }
       }
   
       "Set" in {
-        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beRight.like { case p => p.nicknames must_== Set("nick1", "nick2") }
+        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== Set("nick1", "nick2") }
       }
     }
 
@@ -65,12 +65,12 @@ object CaseClassFormatSpec extends Specification {
             )
           )
 
-        caseClassFormat[Person, generic.Repr].read(personWithGender) must beRight.like { case p => p.gender must beSome("female") }
+        caseClassFormat[Person, generic.Repr].read(personWithGender) must beSuccessfulTry.like { case p => p.gender must beSome("female") }
       }
   
       "None if property does not exist" in {
         val personWithoutGender = MicrodataItem(Seq(("name", MicrodataString("hello"))))
-        caseClassFormat[Person, generic.Repr].read(personWithoutGender) must beRight.like { case p => p.gender must be(None) }
+        caseClassFormat[Person, generic.Repr].read(personWithoutGender) must beSuccessfulTry.like { case p => p.gender must be(None) }
       }
     }
 
@@ -93,7 +93,7 @@ object CaseClassFormatSpec extends Specification {
           )
         )
 
-      caseClassFormat[Person, generic.Repr].read(microdata) must_== Right(Person("hello", Address("10 World Road")))
+      caseClassFormat[Person, generic.Repr].read(microdata) must beSuccessfulTry(Person("hello", Address("10 World Road")))
     }
 
     "convert recursive case classes" in {
@@ -114,7 +114,7 @@ object CaseClassFormatSpec extends Specification {
           )
         )
 
-      caseClassFormat[Person, generic.Repr].read(microdata) must_== Right(Person("hello", Some(Person("Pally"))))
+      caseClassFormat[Person, generic.Repr].read(microdata) must beSuccessfulTry(Person("hello", Some(Person("Pally"))))
     }
  
  

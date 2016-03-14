@@ -9,11 +9,11 @@ object LinkFormatSpec extends Specification {
   "LinkFormat should" >> {
 
     "convert microdata strings" in {
-      LinkFormat.read(MicrodataLink(URI("http://example.org"))) must_== Right(URI("http://example.org"))
+      LinkFormat.read(MicrodataLink(URI("http://example.org"))) must beSuccessfulTry(URI("http://example.org"))
     }
 
     "not convert non-string microdata" in {
-      LinkFormat.read(MicrodataString("test")) must beLeft
+      LinkFormat.read(MicrodataString("test")) must beFailedTry
     }
 
   }

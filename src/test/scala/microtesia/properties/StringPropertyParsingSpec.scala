@@ -19,7 +19,7 @@ object StringPropertyParsingSpec extends Specification {
 
     "parse microdata string properties" in new TestStringPropertyParsing {
       val html = XML.loadString("""<name>value</name>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataString("value"))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataString("value"))
     }
 
   }

@@ -1,4 +1,4 @@
-// Copyright 2015 Ricardo Gladwell.
+// Copyright 2015-2016 Ricardo Gladwell.
 // Licensed under the GNU Lesser General Public License.
 // See the README.md file for more information.
 
@@ -6,14 +6,15 @@ package microtesia
 
 import java.net.URI
 import microtesia.properties.PropertiesParser
+import scala.util.{Success, Try}
 
 private[microtesia] trait ItemsParser[N] {
   this: PropertiesParser[N] =>
 
-  def parseItems(element: Element[N]): Parsed[Seq[MicrodataItem], N] =
+  def parseItems(element: Element[N]): Try[Seq[MicrodataItem]] =
     element match {
 
-      case e if e.hasAttr("itemscope") => parseItem(element).right.map { Seq(_) }
+      case e if e.hasAttr("itemscope") => parseItem(element).map { Seq(_) }
 
       case _                           => element
                                             .childMap{ parseItems(_) }
@@ -21,7 +22,7 @@ private[microtesia] trait ItemsParser[N] {
 
     }
 
-  def parseItem(element: Element[N]): Parsed[MicrodataItem, N] = {
+  def parseItem(element: Element[N]): Try[MicrodataItem] = {
     val properties = element
                        .childMap{ parseProperties(_) }
                        .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
@@ -29,7 +30,6 @@ private[microtesia] trait ItemsParser[N] {
     val props = Seq(properties, parseItemReferences(element)).traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
 
     props
-      .right
       .map{ p =>
         MicrodataItem(
           itemtype   = element.attr("itemtype").map(new URI(_)),
@@ -39,7 +39,7 @@ private[microtesia] trait ItemsParser[N] {
       }
   }
 
-  private def parseItemReferences(element: Element[N]): Parsed[Seq[MicrodataProperty], N] =
+  private def parseItemReferences(element: Element[N]): Try[Seq[MicrodataProperty]] =
     element.attr("itemref")
       .map {
         _.split(" +")
@@ -49,10 +49,10 @@ private[microtesia] trait ItemsParser[N] {
         }
         .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
       }
-    .getOrElse(Right(Seq()))
+    .getOrElse(Success(Seq()))
 
-  private def parseItemReference(id: String, element: Element[N]): Parsed[Seq[MicrodataProperty], N] = {
-    element.doc.findById(id).map { parseProperties(_) }.getOrElse(Right(Seq()))
+  private def parseItemReference(id: String, element: Element[N]): Try[Seq[MicrodataProperty]] = {
+    element.doc.findById(id).map { parseProperties(_) }.getOrElse(Success(Seq()))
   }
 
 }

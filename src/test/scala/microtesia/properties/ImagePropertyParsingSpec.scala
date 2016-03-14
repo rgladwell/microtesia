@@ -20,7 +20,7 @@ object ImagePropertyParsingSpec extends Specification {
 
     "parse hyperlink elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<img src="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "not parse non-hyperlink elements" in new TestImagePropertyParsing {
@@ -30,37 +30,37 @@ object ImagePropertyParsingSpec extends Specification {
 
     "not parse empty hyperlink elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<img/>""")
-      parseProperty(SaxElement(html,html)) must beLeft(beAnInstanceOf[InvalidMicrodata])
+      parseProperty(SaxElement(html,html)) must beFailedTry(beAnInstanceOf[InvalidMicrodata])
     }
 
     "parse audio elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<audio src="http://example.org">other</audio>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "parse embed elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<embed src="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "parse iframe elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<iframe src="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "parse source elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<source src="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "parse track elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<track src="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
 
     "parse video elements" in new TestImagePropertyParsing {
       val html = XML.loadString("""<video src="http://example.org" />""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataLink(URI("http://example.org")))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataLink(URI("http://example.org")))
     }
   }
 }

@@ -7,6 +7,7 @@ package microtesia.formats
 import microtesia._
 import shapeless._
 import labelled._
+import scala.util.{Failure, Success, Try}
 
 /**
  * Implicit microdata formats for case classes using [shapeless].
@@ -20,14 +21,14 @@ trait ShapelessFormats {
    * Implicit [[MicrodataPropertyFormat]] to convert simple microdata properties.
    */
   implicit def simplePropertyFormat[T](implicit format: MicrodataFormat[T]) = new MicrodataPropertyFormat[T] {
-    override def read(properties: Seq[MicrodataValue]): Converted[T] = format.read(properties.head)
+    override def read(properties: Seq[MicrodataValue]): Try[T] = format.read(properties.head)
   }
 
   /**
    * Implicit [[MicrodataFormat]] to convert [[MicrodataValue]]s to empty HLists.
    */
   implicit object HNilFormat extends MicrodataFormat[HNil] {
-    override def read(microdata: MicrodataValue) = Right(HNil)
+    override def read(microdata: MicrodataValue) = Success(HNil)
   }
 
   /**
@@ -43,14 +44,14 @@ trait ShapelessFormats {
 
       override def read(microdata: MicrodataValue) = microdata match {
         case item: MicrodataItem => read(item)
-        case other               => Left(CannotConvert(classOf[FieldType[Key, Value] :: Remaining], other))
+        case other               => Failure(CannotConvert(classOf[FieldType[Key, Value] :: Remaining], other))
       }
 
       private def read(item: MicrodataItem) = {
         val properties = item(key.value.name)
         for {
-          head <- mfh.value.read(properties).right
-          tail <- mft.value.read(item).right
+          head <- mfh.value.read(properties)
+          tail <- mft.value.read(item)
         } yield (field[Key](head) :: tail)
       }
     }
@@ -67,8 +68,8 @@ trait ShapelessFormats {
     tpe: Typeable[T]
   ) = 
     new MicrodataFormat[T] {
-      override def read(microdata: MicrodataValue): Converted[T] = {
-        for(hlist <- format.value.read(microdata).right) yield generic.from(hlist)
+      override def read(microdata: MicrodataValue): Try[T] = {
+        for(hlist <- format.value.read(microdata)) yield generic.from(hlist)
       }
     }
 

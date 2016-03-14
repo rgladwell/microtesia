@@ -6,6 +6,7 @@ package microtesia.formats
 
 import microtesia._
 import java.net.URI
+import scala.util.{Failure, Success, Try}
 
 /**
  * Implicit microdata formats for rich data types, including [[URI]]. This needs
@@ -18,9 +19,9 @@ trait RichTypeFormats {
    * Implicit [[MicrodataFormat]] to convert [[MicrodataValue]]s to [[URI]].
    */
   implicit object LinkFormat extends MicrodataFormat[URI] {
-    override def read(microdata: MicrodataValue): Converted[URI] = microdata match {
-      case MicrodataLink(value)  => Right(value)
-      case other                 => Left(CannotConvert(classOf[URI], other))
+    override def read(microdata: MicrodataValue): Try[URI] = microdata match {
+      case MicrodataLink(value)  => Success(value)
+      case other                 => Failure(CannotConvert(classOf[URI], other))
     }
   }
 

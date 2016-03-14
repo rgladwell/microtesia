@@ -19,7 +19,7 @@ object DataPropertyParsingSpec extends Specification {
 
     "parse data elements" in new TestDataPropertyParsing {
       val html = XML.loadString("""<data value="test-value">other</data>""")
-      parseProperty(SaxElement(html, html)) must beRight(MicrodataString("test-value"))
+      parseProperty(SaxElement(html, html)) must beSuccessfulTry(MicrodataString("test-value"))
     }
 
     "not parse non-data elements" in new TestDataPropertyParsing {
@@ -29,7 +29,7 @@ object DataPropertyParsingSpec extends Specification {
 
     "parse empty data elements" in new TestDataPropertyParsing {
       val html = XML.loadString("""<data/>""")
-      parseProperty(SaxElement(html, html)) must beRight(MicrodataString(""))
+      parseProperty(SaxElement(html, html)) must beSuccessfulTry(MicrodataString(""))
     }
 
   }

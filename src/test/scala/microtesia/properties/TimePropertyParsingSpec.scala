@@ -19,12 +19,12 @@ object TimePropertyParsingSpec extends Specification {
 
     "parse time element values" in new TestNestedItemPropertyParsing {
       val html = XML.loadString("""<time>2005-01-01</time>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataString("2005-01-01"))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataString("2005-01-01"))
     }
 
     "parse datetime element attributes" in new TestNestedItemPropertyParsing {
       val html = XML.loadString("""<time datetime="2005-01-01">1st January 2005</time>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataString("2005-01-01"))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataString("2005-01-01"))
     }
 
     "not parse non-time elements" in new TestNestedItemPropertyParsing {
@@ -34,7 +34,7 @@ object TimePropertyParsingSpec extends Specification {
 
     "parse empty time elements" in new TestNestedItemPropertyParsing {
       val html = XML.loadString("""<time/>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataString(""))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataString(""))
     }
 
   }

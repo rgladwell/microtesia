@@ -6,6 +6,7 @@ package microtesia.formats
 
 import scala.annotation.implicitNotFound
 import microtesia.MicrodataValue
+import scala.util.Try
 
 /**
  * Trait for implicit formatters to de-serialize microdata properties.
@@ -14,6 +15,6 @@ import microtesia.MicrodataValue
 @implicitNotFound(msg = "Cannot find MicrodataPropertyFormat type class for ${T}")
 trait MicrodataPropertyFormat[T] {
 
-  def read(properties: Seq[MicrodataValue]): Either[CannotConvert, T]
+  def read(properties: Seq[MicrodataValue]): Try[T]
 
 }

@@ -6,6 +6,7 @@ package microtesia.formats
 
 import scala.annotation.implicitNotFound
 import microtesia.MicrodataValue
+import scala.util.Try
 
 /**
  * Trait for implicit formatters to de-serialize microdata values to hard types.
@@ -36,6 +37,6 @@ import microtesia.MicrodataValue
 @implicitNotFound(msg = "Cannot find MicrodataFormat type class for ${T}")
 trait MicrodataFormat[T] {
 
-  def read(microdata: MicrodataValue): Either[CannotConvert, T]
+  def read(microdata: MicrodataValue): Try[T]
 
 }

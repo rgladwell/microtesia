@@ -21,7 +21,7 @@ scala> parseMicrodata("""<div
                           itemtype="http://schema.org/Movie">
                             <h1 itemprop="name">Avatar</h1>
                           </div>""")
-res0: Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
+res0: Try[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
 ```
 
 See the [API reference](http://rgladwell.github.io/microtesia/latest/api) for

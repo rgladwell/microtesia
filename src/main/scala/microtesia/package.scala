@@ -2,13 +2,14 @@
 // Licensed under the GNU Lesser General Public License.
 // See the README.md file for more information.
 
-import java.io.StringReader
-import microtesia.properties._
-import scala.xml.Node
-import scala.language.implicitConversions
-import scala.io.Source
 import java.io.InputStreamReader
 import java.io.InputStream
+import java.io.StringReader
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Success, Try}
+import scala.xml.Node
+import microtesia.properties._
+import scala.language.implicitConversions
 
 /**
  * Documentation for the Microtesia microdata parsing library.
@@ -23,7 +24,7 @@ import java.io.InputStream
  * import microtesia._
  *
  * scala> parseMicrodata("""&lt;div itemscope itemtype="http://schema.org/Movie">&lt;h1 itemprop="name">Avatar&lt;/h1>&lt;/div>""")
- * res0: Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Right(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
+ * res0: Try[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
  * }}}
  */
 package object microtesia {
@@ -41,9 +42,7 @@ package object microtesia {
     def unapply(p: MicrodataProperty): Option[(String, MicrodataValue)] = Some(p)
   }
 
-  private[microtesia] type Parsed[M, N] = Either[InvalidMicrodata, M]
-
-  private[microtesia] implicit def toEitherSequence[A, B](seq: Seq[Either[A,B]]) = new EitherSequence(seq)
+  private[microtesia] implicit def toTrySequence[A](seq: Seq[Try[A]]) = new TrySequence(seq)
 
   private val parser = new SaxMicrodataParser
                             with TagSoupSax
@@ -59,14 +58,19 @@ package object microtesia {
 
   /**
    * Parses HTML and returns a structured representation of the microdata items in the document.
-   * If there was an error parsing the microdata it returns a `Left[InvalidMicrodata]`.
+   * If there was an error parsing the microdata it returns a `Failed(InvalidMicrodata)`.
    */
-  def parseMicrodata(html: String): Either[InvalidMicrodata, MicrodataDocument] = parser parse new StringReader(html)
+  def parseMicrodata(html: String): Try[MicrodataDocument] = parser parse new StringReader(html)
 
   /**
    * Parses HTML and returns a structured representation of the microdata items in the document.
    * If there was an error parsing the microdata it returns a `Left[InvalidMicrodata]`.
    */
-  def parseMicrodata(input: InputStream): Either[InvalidMicrodata, MicrodataDocument] = parser parse new InputStreamReader(input)
+  def parseMicrodata(input: InputStream)(implicit c: ExecutionContext): Future[MicrodataDocument] =
+    Future(parser parse new InputStreamReader(input))
+      .flatMap {
+         case Success(result) => Future.successful(result)
+         case Failure(error)  => Future.failed(error)
+      }
 
 }

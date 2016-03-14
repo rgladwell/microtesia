@@ -1,4 +1,4 @@
-// Copyright 2015 Ricardo Gladwell.
+// Copyright 2015-2016 Ricardo Gladwell.
 // Licensed under the GNU Lesser General Public License.
 // See the README.md file for more information.
 
@@ -12,7 +12,7 @@ package microtesia
  * @param line Line number in the document of the HTML failing validation.
  * @param column Column number in the document of the HTML failing validation.
  */
-case class InvalidMicrodata private (message: String, line: Option[Int], column: Option[Int])
+case class InvalidMicrodata private (message: String, line: Option[Int], column: Option[Int]) extends Exception
 
 private object InvalidMicrodata {
 

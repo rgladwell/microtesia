@@ -4,6 +4,8 @@
 
 package microtesia
 
+import scala.util.Try
+
 /**
  * API to automatically de-serialise [[MicrodataValue]] instances into value types and case classes.
  *
@@ -30,12 +32,10 @@ package microtesia
  *             ("adult", MicrodataString("true"))
  *           )
  *         ).convertTo[Person]
- * res0: Person = Person(hello,13,true)
+ * res0: Try[Person] = Success(Person(hello,13,true))
  * }}}
  */
 package object formats extends SimpleTypeFormats with RichTypeFormats with CollectionFormats with ShapelessFormats {
-
-  private[formats] type Converted[T] = Either[CannotConvert, T]
 
   /**
    * Implicit typeclass to enrich [[MicrodataValue]] instances with the [[convertTo]] method.
@@ -54,10 +54,10 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
      * import formats._
      * 
      * scala> MicrodataString("10").convertTo[Int]
-     * res0: Int = 10
+     * res0: Try[Int] = Success(10)
      * }}}
      */
-    def convertTo[T](implicit format: MicrodataFormat[T]): Either[CannotConvert, T] = format.read(value)
+    def convertTo[T](implicit format: MicrodataFormat[T]): Try[T] = format.read(value)
   }
 
 }

@@ -6,11 +6,12 @@ package microtesia
 
 import org.specs2.matcher.{Matcher, MatchResult, Matchers, MustMatchers}
 import scala.xml.Node
+import scala.util.Try
 
 trait MicrodataMatchers extends Matchers with MustMatchers {
 
-  def beDocument(matcher: (MicrodataDocument) => MatchResult[Any]): Matcher[Either[InvalidMicrodata, MicrodataDocument]] =
-    beRight.like{ case doc: MicrodataDocument => matcher(doc) }
+  def beDocument(matcher: (MicrodataDocument) => MatchResult[Any]): Matcher[Try[MicrodataDocument]] =
+    beSuccessfulTry.like{ case doc: MicrodataDocument => matcher(doc) }
 
   def haveProperty(p: (String, MicrodataValue)): Matcher[Seq[MicrodataProperty]] = havePropertyMatching((p._1, ===(p._2)))
 

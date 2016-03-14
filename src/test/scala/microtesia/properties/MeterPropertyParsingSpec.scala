@@ -19,7 +19,7 @@ object MeterPropertyParsingSpec extends Specification {
 
     "parse meter elements" in new TestMeterPropertyParsing {
       val html = XML.loadString("""<meter value="1">One</meter>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataString("1"))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataString("1"))
     }
 
     "not parse non-meter elements" in new TestMeterPropertyParsing {
@@ -29,7 +29,7 @@ object MeterPropertyParsingSpec extends Specification {
 
     "parse empty meter elements" in new TestMeterPropertyParsing {
       val html = XML.loadString("""<meter/>""")
-      parseProperty(SaxElement(html,html)) must beRight(MicrodataString(""))
+      parseProperty(SaxElement(html,html)) must beSuccessfulTry(MicrodataString(""))
     }
 
   }

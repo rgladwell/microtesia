@@ -12,17 +12,17 @@ object SimpleFormatSpec extends Specification {
 
     "convert integers" in {
       val format = new SimpleFormat[Int]
-      format.read(MicrodataString("10")) must_== Right(10)
+      format.read(MicrodataString("10")) must beSuccessfulTry(10)
     }
 
     "convert double" in {
       val format = new SimpleFormat[Double]
-      format.read(MicrodataString("10.01")) must_== Right(10.01)
+      format.read(MicrodataString("10.01")) must beSuccessfulTry(10.01)
     }
 
     "not convert non-values" in {
       val format = new SimpleFormat[Int]
-      format.read(MicrodataLink(URI("http://example.org"))) must beLeft
+      format.read(MicrodataLink(URI("http://example.org"))) must beFailedTry
     }
 
   }

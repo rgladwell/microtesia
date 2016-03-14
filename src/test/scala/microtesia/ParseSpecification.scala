@@ -9,6 +9,8 @@ import urimplicit._
 import scala.xml.Node
 import scala.io.Source
 import java.io.ByteArrayInputStream
+import scala.concurrent.Await
+import scala.concurrent.duration._
 
 /**
  * Test fixtures taken from http://www.w3.org/TR/microdata/
@@ -296,15 +298,15 @@ object ParseSpecification extends Specification with MicrodataMatchers {
       val microdata = parseMicrodata(html)
 
       "invalidate" >> {
-        microdata must beLeft(beAnInstanceOf[InvalidMicrodata])
+        microdata must beFailedTry(beAnInstanceOf[InvalidMicrodata])
       }
 
       "report invalid line" >> {
-        microdata must beLeft.like{ case error: InvalidMicrodata => error.line must beSome(1) }
+        microdata must beFailedTry.like{ case error: InvalidMicrodata => error.line must beSome(1) }
       }
 
       "report invalid column" >> {
-        microdata must beLeft.like{ case error: InvalidMicrodata => error.column must beSome(1) }
+        microdata must beFailedTry.like{ case error: InvalidMicrodata => error.column must beSome(1) }
       }
 
     }
@@ -343,20 +345,15 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
     }
 
-    "parse sources and" >> {
-
+    "parse input streams reactively" >> {
       val html = """<div itemscope>
                       <p>My name is <span itemprop="name">Elizabeth</span>.</p>
                     </div>"""
 
+      import scala.concurrent.ExecutionContext.Implicits.global
       val microdata = parseMicrodata(new ByteArrayInputStream(html.getBytes))
 
-      "return item name" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
-          item.properties must haveProperty("name" -> MicrodataString("Elizabeth"))
-        )}
-      }
-
+      Await.result(microdata, 1.second) must not(throwA[Exception])
     }
   }
 
