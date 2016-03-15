@@ -5,6 +5,7 @@
 package microtesia
 
 import scala.util.Try
+import java.net.URI
 
 /**
  * API to automatically de-serialise [[MicrodataValue]] instances into value types and case classes.
@@ -59,5 +60,44 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
      */
     def convertTo[T](implicit format: MicrodataFormat[T]): Try[T] = format.read(value)
   }
+
+  /**
+   * Implicit typeclass to enrich [[MicrodataDocument]] instances with the [[convertRootsTo]] method.
+   */
+  implicit class EnrichedMicrodataDocument(document: MicrodataDocument) {
+
+    /**
+     * Automatically de-serialize all root [[MicrodataItem]]s in a document as [[convertTo]] that
+     * match the given `itemtype`.
+     * E.g.:
+     * 
+     * {{{
+     * scala> import microtesia._
+     * import microtesia._
+     * 
+     * scala> import formats._
+     * import formats.__
+     * 
+     * scala> case class Person(name: String)
+     * defined class Person
+     * 
+     * scala> val document = parseMicrodata("""&lt;div itemscope itemtype="http://example.org/person">&lt;h1 itemprop="name">Person&lt;/h1>&lt;/div>""").get
+     * document: scala.util.Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://example.org/person),None))))
+     * 
+     * scala> document.convertRootsTo[Person](new java.net.URI("http://example.org/person"))
+     * res0: scala.util.Try[Seq[Person]] = Success(List(Person(Person)))
+     * }}}
+     */
+    def convertRootsTo[T](itemtype: URI)(implicit format: MicrodataFormat[T]): Try[Seq[T]] = {
+
+      def matchesItemtype(item: MicrodataItem) = item.itemtype.filter { _ == itemtype }.isDefined
+ 
+      document.items
+        .filter{ matchesItemtype }
+        .map { _.convertTo[T] }
+        .sequence
+    }
+  }
+
 
 }
