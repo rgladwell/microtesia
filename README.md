@@ -63,6 +63,15 @@ scala>  MicrodataItem(
 res0: Person = Person(hello,13,true)
 ```
 
+## Releasing
+
+To release a new, [tagged](https://git-scm.com/book/en/v2/Git-Basics-Tagging) version of Microtesia, execute the following:
+
+```sh
+$ sbt +publish
+$ sbt ghpages-push-site
+```
+
 ## License
 
 This program is free software: you can redistribute it and/or modify
