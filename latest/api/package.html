@@ -86,13 +86,12 @@
         <img src="lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Documentation for the Microtesia microdata parsing library.</p><div class="fullcomment"><div class="comment cmt"><p>Documentation for the Microtesia microdata parsing library.</p><h4> Usage </h4><p>To use simply put the Microtesia API in scope and call the <a href="microtesia/package.html#parse(html:String):Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parse">parse</a>
-method as follows:</p><pre>scala&gt; <span class="kw">import</span> microtesia._
+      <p class="shortcomment cmt">Documentation for the Microtesia microdata parsing library.</p><div class="fullcomment"><div class="comment cmt"><p>Documentation for the Microtesia microdata parsing library.</p><h4> Usage </h4><p>To use simply put the Microtesia API in scope and call the <a href="microtesia/package.html#parseMicrodata(input:java.io.InputStream)(implicitc:scala.concurrent.ExecutionContext):scala.concurrent.Future[microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parseMicrodata">parseMicrodata</a>
+function as follows:</p><pre>scala&gt; <span class="kw">import</span> microtesia._
 <span class="kw">import</span> microtesia._
 
-scala&gt; parse(<span class="lit">""</span><span class="lit">"&lt;div itemscope itemtype="</span>http:<span class="cmt">//schema.org/Movie"&gt;&lt;h1 itemprop="name"&gt;Avatar&lt;/h1&gt;&lt;/div&gt;""")</span>
-res0: Either[microtesia.InvalidMicrodata[scala.xml.Node],microtesia.MicrodataDocument] =
-Right(MicrodataDocument(<span class="std">List</span>(MicrodataItem(<span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie),Map(name -> List(MicrodataString(Avatar))),None))))</span></pre></div></div>
+scala&gt; parseMicrodata(<span class="lit">""</span><span class="lit">"&lt;div itemscope itemtype="</span>http:<span class="cmt">//schema.org/Movie">&lt;h1 itemprop="name">Avatar&lt;/h1>&lt;/div>""")</span>
+res0: Try[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Success(MicrodataDocument(<span class="std">List</span>(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),<span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie),None))))</span></pre></div></div>
     </li></ol>
             </div>
 

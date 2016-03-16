@@ -1,22 +1,22 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>MicrodataValue - microtesia.MicrodataValue</title>
-          <meta name="description" content="MicrodataValue - microtesia.MicrodataValue" />
-          <meta name="keywords" content="MicrodataValue microtesia.MicrodataValue" />
+          <title>EnrichedMicrodataDocument - microtesia.formats.EnrichedMicrodataDocument</title>
+          <meta name="description" content="EnrichedMicrodataDocument - microtesia.formats.EnrichedMicrodataDocument" />
+          <meta name="keywords" content="EnrichedMicrodataDocument microtesia.formats.EnrichedMicrodataDocument" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
-      <link href="../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
-      <link href="../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
-      <script type="text/javascript" src="../lib/jquery.js" id="jquery-js"></script>
-      <script type="text/javascript" src="../lib/jquery-ui.js"></script>
-      <script type="text/javascript" src="../lib/template.js"></script>
-      <script type="text/javascript" src="../lib/tools.tooltip.js"></script>
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
       
       <script type="text/javascript">
          if(top === self) {
-            var url = '../index.html';
-            var hash = 'microtesia.MicrodataValue';
+            var url = '../../index.html';
+            var hash = 'microtesia.formats.package$$EnrichedMicrodataDocument';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -28,44 +28,32 @@
         </head>
         <body class="type">
       <div id="definition">
-        <img alt="Class" src="../lib/class_big.png" />
-        <p id="owner"><a href="package.html" class="extype" name="microtesia">microtesia</a></p>
-        <h1>MicrodataValue</h1><h3><span class="morelinks"><div>Related Doc:
-            <a href="package.html" class="extype" name="microtesia">package microtesia</a>
+        <img alt="Class" src="../../lib/class_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="microtesia">microtesia</a>.<a href="package.html" class="extype" name="microtesia.formats">formats</a></p>
+        <h1>EnrichedMicrodataDocument</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="microtesia.formats">package formats</a>
           </div></span></h3><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">sealed abstract </span>
+        <span class="modifier">implicit </span>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">MicrodataValue</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">EnrichedMicrodataDocument</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Generic microdata value. You can extract microdata values using for-comprehensions:</p><pre>scala&gt; <span class="kw">import</span> microtesia._
-<span class="kw">import</span> microtesia._
-
-scala&gt; <span class="kw">val</span> items = <span class="std">List</span>(MicrodataItem(<span class="std">List</span>(MicrodataProperty(<span class="lit">"name"</span>,MicrodataString(<span class="lit">"Avatar"</span>)))))
-items: <span class="std">List</span>[microtesia.MicrodataItem] = <span class="std">List</span>(MicrodataItem(<span class="std">List</span>((name,MicrodataString(Avatar))),<span class="std">None</span>,<span class="std">None</span>))
-
-scala&gt; <span class="kw">for</span> {
-         MicrodataItem(properties, _, _) <span class="kw">&lt;-</span> items
-         MicrodataProperty(<span class="lit">"name"</span>, MicrodataString(string)) <span class="kw">&lt;-</span> properties
-       } <span class="kw">yield</span> string
-res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span class="std">List</span>(Avatar)</pre></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Implicit typeclass to enrich <a href="../MicrodataDocument.html" class="extype" name="microtesia.MicrodataDocument">MicrodataDocument</a> instances with the <a href="#convertRootsTo[T](itemtype:java.net.URI)(implicitformat:microtesia.formats.MicrodataFormat[T]):scala.util.Try[Seq[T]]" class="extmbr" name="microtesia.formats.EnrichedMicrodataDocument#convertRootsTo">convertRootsTo</a> method.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
-        </div><div class="toggleContainer block">
-            <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>, <a href="MicrodataLink.html" class="extype" name="microtesia.MicrodataLink">MicrodataLink</a>, <a href="MicrodataString.html" class="extype" name="microtesia.MicrodataString">MicrodataString</a></div>
-          </div></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -82,7 +70,7 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="microtesia.MicrodataValue"><span>MicrodataValue</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="microtesia.formats.EnrichedMicrodataDocument"><span>EnrichedMicrodataDocument</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -99,7 +87,27 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
 
       <div id="template">
         <div id="allMembers">
-        
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="microtesia.formats.EnrichedMicrodataDocument#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;(document:microtesia.MicrodataDocument):microtesia.formats.package.EnrichedMicrodataDocument"></a>
+      <a id="&lt;init&gt;:EnrichedMicrodataDocument"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">EnrichedMicrodataDocument</span><span class="params">(<span name="document">document: <a href="../MicrodataDocument.html" class="extype" name="microtesia.MicrodataDocument">MicrodataDocument</a></span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@&lt;init&gt;(document:microtesia.MicrodataDocument):microtesia.formats.package.EnrichedMicrodataDocument" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
 
         
 
@@ -119,8 +127,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@!=(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -136,8 +144,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@##():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@##():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -153,8 +161,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@==(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -170,8 +178,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@asInstanceOf[T0]:T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -187,17 +195,50 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@clone():Object" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@clone():Object" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="microtesia.formats.EnrichedMicrodataDocument#convertRootsTo" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="convertRootsTo[T](itemtype:java.net.URI)(implicitformat:microtesia.formats.MicrodataFormat[T]):scala.util.Try[Seq[T]]"></a>
+      <a id="convertRootsTo[T](URI)(MicrodataFormat[T]):Try[Seq[T]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">convertRootsTo</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="itemtype">itemtype: <span class="extype" name="java.net.URI">URI</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="format">format: <a href="MicrodataFormat.html" class="extype" name="microtesia.formats.MicrodataFormat">MicrodataFormat</a>[<span class="extype" name="microtesia.formats.EnrichedMicrodataDocument.convertRootsTo.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="microtesia.formats.EnrichedMicrodataDocument.convertRootsTo.T">T</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@convertRootsTo[T](itemtype:java.net.URI)(implicitformat:microtesia.formats.MicrodataFormat[T]):scala.util.Try[Seq[T]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Automatically de-serialize all root <a href="../MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>s in a document as <span class="extype" name="convertTo">convertTo</span> that
+match the given <code>itemtype</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Automatically de-serialize all root <a href="../MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>s in a document as <span class="extype" name="convertTo">convertTo</span> that
+match the given <code>itemtype</code>.
+E.g.:</p><pre>scala&gt; <span class="kw">import</span> microtesia._
+<span class="kw">import</span> microtesia._
+
+scala&gt; <span class="kw">import</span> formats._
+<span class="kw">import</span> formats.__
+
+scala&gt; <span class="kw">case</span> <span class="kw">class</span> Person(name: <span class="std">String</span>)
+defined <span class="kw">class</span> Person
+
+scala&gt; <span class="kw">val</span> document = parseMicrodata(<span class="lit">""</span><span class="lit">"&lt;div itemscope itemtype="</span>http:<span class="cmt">//example.org/person">&lt;h1 itemprop="name">Person&lt;/h1>&lt;/div>""").get</span>
+document: scala.util.Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(<span class="std">List</span>(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),<span class="std">Some</span>(http:<span class="cmt">//example.org/person),None))))</span>
+
+scala&gt; document.convertRootsTo[Person](<span class="kw">new</span> java.net.URI(<span class="lit">"http://example.org/person"</span>))
+res0: scala.util.Try[<span class="std">Seq</span>[Person]] = Success(<span class="std">List</span>(Person(Person)))</pre></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -210,8 +251,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -227,8 +268,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@equals(x$1:Any):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -244,11 +285,11 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@finalize():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">(<span>
       
       <span class="symbol">classOf[java.lang.Throwable]</span>
@@ -267,8 +308,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@getClass():Class[_]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -284,8 +325,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@hashCode():Int" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -301,8 +342,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -318,8 +359,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -335,8 +376,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@notify():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@notify():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -352,8 +393,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@notifyAll():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -369,8 +410,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -386,8 +427,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@toString():String" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@toString():String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -403,8 +444,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@wait():Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@wait():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -426,8 +467,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -449,8 +490,8 @@ res0: <span class="std">Seq</span>[<span class="std">String</span>] = <span clas
         <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataValue@wait(x$1:Long):Unit" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
+      <a href="../../index.html#microtesia.formats.package$$EnrichedMicrodataDocument@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>

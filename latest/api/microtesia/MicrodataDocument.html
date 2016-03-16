@@ -50,7 +50,7 @@
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Representation of a document containing microdata mark-up. Returned by the
-<a href="package.html#parse(html:String):Either[microtesia.InvalidMicrodata,microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parse">parse</a> function. A <a href="" class="extype" name="microtesia.MicrodataDocument">MicrodataDocument</a> can contain multiple
+<a href="package.html#parseMicrodata(input:java.io.InputStream)(implicitc:scala.concurrent.ExecutionContext):scala.concurrent.Future[microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parseMicrodata">parseMicrodata</a> function. A <a href="" class="extype" name="microtesia.MicrodataDocument">MicrodataDocument</a> can contain multiple
 <a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a> instances which can be accessed via the <code>items</code> property
 as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span class="kw">=&gt;</span> println(m.itemtype) }
 <span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie)</span></pre></div><div class="toggleContainer block">
@@ -66,7 +66,7 @@ as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span c
               <ol>
                 
                 <li class="alpha in"><span>Alphabetic</span></li>
-                <li class="inherit out"><span>By inheritance</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
               </ol>
             </div>
         <div id="ancestors">
@@ -79,7 +79,7 @@ as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span c
             <span class="filtertype"></span>
             <ol>
               <li class="hideall out"><span>Hide All</span></li>
-              <li class="showall in"><span>Show all</span></li>
+              <li class="showall in"><span>Show All</span></li>
             </ol>
           </div>
         <div id="visbl">
