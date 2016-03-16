@@ -1,7 +1,7 @@
 language: scala
 scala:
 - 2.10.4
-- 2.11.7
+- 2.11.8
 script:
 - sbt -Dgithub.token=$GH_TOKEN ++$TRAVIS_SCALA_VERSION coverage test codacyCoverage
 jdk:
