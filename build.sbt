@@ -60,3 +60,7 @@ ghpages.settings
 git.remoteRepo := "git@github.com:rgladwell/microtesia.git"
 
 site.includeScaladoc()
+
+doctestDecodeHtmlEntities := true
+
+doctestMarkdownEnabled := true

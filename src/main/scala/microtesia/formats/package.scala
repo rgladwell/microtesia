@@ -23,6 +23,9 @@ import java.net.URI
  * scala> import formats._
  * import formats._
  *
+ * scala> import scala.util.Try
+ * import scala.util.Try
+ *
  * scala> case class Person(name: String, age: Int, adult: Boolean)
  * defined class Person
  * 
@@ -53,6 +56,10 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
      * 
      * scala> import formats._
      * import formats._
+     *
+     * scala> import scala.util.Try
+     * import scala.util.Try
+     *
      * 
      * scala> MicrodataString("10").convertTo[Int]
      * res0: Try[Int] = Success(10)
@@ -77,7 +84,10 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
      * 
      * scala> import formats._
      * import formats.__
-     * 
+     *
+     * scala> import scala.util.Try
+     * import scala.util.Try
+     *
      * scala> case class Person(name: String)
      * defined class Person
      * 
@@ -98,6 +108,5 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
         .sequence
     }
   }
-
 
 }

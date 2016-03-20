@@ -21,17 +21,20 @@ import scala.util.Try
  * 
  * scala> import java.time._
  * import java.time._
+ *
+ * scala> import scala.util.{Failure, Success, Try}
+ * import scala.util.{Failure, Success, Try}
  * 
  * scala> implicit val dateFormat = new MicrodataFormat[LocalDate] {
- *   override def read(microdata: MicrodataValue): LocalDate = microdata match {
- *     case MicrodataString(value)  => LocalDate.parse(value)
- *     case other                   => throw CannotConvert(classOf[LocalDate], other)
- *   }
- * }
+ *      |  override def read(microdata: MicrodataValue): Try[LocalDate] = microdata match {
+ *      |    case MicrodataString(value)  => Success(LocalDate.parse(value))
+ *      |    case other                   => Failure(CannotConvert(classOf[LocalDate], other))
+ *      |  }
+ *      | }
  * dateFormat: microtesia.formats.MicrodataFormat[java.time.LocalDate] = $anon$1@4fa4e3b6
  * 
  * scala> MicrodataString("2016-01-01").convertTo[LocalDate]
- * res0: java.time.LocalDate = 2016-01-01
+ * res0: Try[java.time.LocalDate] = Success(2016-01-01)
  * }}}
  */
 @implicitNotFound(msg = "Cannot find MicrodataFormat type class for ${T}")

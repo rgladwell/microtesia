@@ -21,10 +21,13 @@ import scala.language.implicitConversions
  *
  * {{{
  * scala> import microtesia._
- * import microtesia._
+ * import microtesia.
+ * 
+ * scala> import scala.util.Try
+ * import scala.util.Try
  *
  * scala> parseMicrodata("""&lt;div itemscope itemtype="http://schema.org/Movie">&lt;h1 itemprop="name">Avatar&lt;/h1>&lt;/div>""")
- * res0: Try[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
+ * res0: Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
  * }}}
  */
 package object microtesia {

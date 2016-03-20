@@ -17,11 +17,11 @@ scala> import microtesia._
 import microtesia._
 
 scala> parseMicrodata("""<div
-                          itemscope
-                          itemtype="http://schema.org/Movie">
-                            <h1 itemprop="name">Avatar</h1>
-                          </div>""")
-res0: Try[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
+     |                    itemscope
+     |                    itemtype="http://schema.org/Movie">
+     |                      <h1 itemprop="name">Avatar</h1>
+     |                    </div>""")
+res0: scala.util.Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(List((name,MicrodataString(Avatar))),Some(http://schema.org/Movie),None))))
 ```
 
 See the [API reference](http://rgladwell.github.io/microtesia/latest/api) for
@@ -30,37 +30,40 @@ more information.
 Once the HTML has been parsed, you can extract microdata values using for-comprehensions:
 
 ```scala
-scala> for {
-         MicrodataItem(properties, _, _) <- res0.right.get.items
-         MicrodataProperty("name", MicrodataString(string)) <- properties
-       } yield string
-res1: Seq[String] = List(Avatar)
-```
-
-See [MicrodataValueSpec.scala](https://github.com/rgladwell/microtesia/tree/master/src/test/scala/MicrodataValueSpec.scala) for more examples of microdata for-comprehensions.
-
-## Readers
-
-While you can use the for-comprehensions to write custom parsers, microtesia provides a `formats` API (based on [https://github.com/milessabin/shapeless](shapeless)) to automatically deserialise `MicrodataValue` instances into value types and case classes:
-
-```scala
 scala> import microtesia._
 import microtesia._
 
-scala> import formats._
+scala> val items = List(MicrodataItem(properties = Seq(("name", MicrodataString("Brian")))))
+
+scala> for {
+     |   MicrodataItem(properties, _, _) <- items
+     |   MicrodataProperty("name", MicrodataString(string)) <- properties
+     | } yield string
+res1: List[String] = List(Brian)
+```
+
+See [MicrodataValueSpec.scala](https://github.com/rgladwell/microtesia/blob/master/src/test/scala/microtesia/MicrodataValueSpec.scala) for more examples of microdata for-comprehensions.
+
+## Readers
+
+While you can use the for-comprehensions to write custom parsers, microtesia provides a `formats` API (based on [https://github.com/milessabin/shapeless](shapeless)) to automatically de-serialise `MicrodataValue` instances into value types and case classes:
+
+```scala
+scala> import microtesia._, formats._
+import microtesia._
 import formats._
 
 scala> case class Person(name: String, age: Int, adult: Boolean)
 defined class Person
 
-scala>  MicrodataItem(
-          Seq(
-            ("name", MicrodataString("hello")),
-            ("age", MicrodataString("13")),
-            ("adult", MicrodataString("true"))
-          )
-        ).convertTo[Person]
-res0: Person = Person(hello,13,true)
+scala> MicrodataItem(
+     |   Seq(
+     |     ("name", MicrodataString("hello")),
+     |     ("age", MicrodataString("13")),
+     |     ("adult", MicrodataString("true"))
+     |   )
+     | ).convertTo[Person]
+res0: scala.util.Try[Person] = Success(Person(hello,13,true))
 ```
 
 ## Releasing
