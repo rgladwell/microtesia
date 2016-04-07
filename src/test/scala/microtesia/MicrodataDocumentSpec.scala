@@ -9,36 +9,65 @@ import urimplicit._
 
 object MicrodataDocumentSpec extends Specification {
   
-  "MicrodataDocument should" >> {
+  "MicrodataDocument" >> {
 
     val person = MicrodataItem(
       itemtype   = Some(URI("http://example.org/person")),
       properties = Seq("name" -> MicrodataString("Frank"))
     )
 
-    "find items based on item type" >> {
-      val document = MicrodataDocument(Seq(person))
-      document.findItems(URI("http://example.org/person")) must contain(person)
+    val organisation = MicrodataItem(
+      itemtype   = Some(URI("http://example.org/org")),
+      properties = Seq("people" -> person)
+    )
+
+    "items should" >> {
+      "find all items based on item type" >> {
+        val document = MicrodataDocument(Seq(organisation))
+        document.items(URI("http://example.org/person")) must contain(person)
+      }
+  
+      "does not find items for non-existent type" >> {
+        val document = MicrodataDocument(Seq(organisation))
+        document.items(URI("http://example.org/cat")) must not contain(person)
+      }
+  
+      "find items based on item type" >> {
+        val document = MicrodataDocument(Seq(organisation, organisation))
+        document.items(URI("http://example.org/person")) must haveSize(2)
+      }
+
+      "find root items" >> {
+        val document = MicrodataDocument(Seq(organisation))
+        document.items(URI("http://example.org/org")) must contain(organisation)
+      }
     }
 
-    "does not find items for non-existent type" >> {
-      val document = MicrodataDocument(Seq(person))
-      document.findItems(URI("http://example.org/cat")) must not contain(person)
-    }
-
-    "find items based on item type" >> {
-      val document = MicrodataDocument(Seq(person, person))
-      document.findItems(URI("http://example.org/person")) must haveSize(2)
-    }
-
-    "find nested items" >> {
-      val organisation = MicrodataItem(
-        itemtype   = Some(URI("http://example.org/org")),
-        properties = Seq("people" -> person)
-      )
-      val document = MicrodataDocument(Seq(organisation))
-
-      document.findItems(URI("http://example.org/person")) must contain(person)
+    "rootItems should" >> {
+      "find items based on item type" >> {
+        val document = MicrodataDocument(Seq(person))
+        document.rootItems(URI("http://example.org/person")) must contain(person)
+      }
+  
+      "does not find items for non-existent type" >> {
+        val document = MicrodataDocument(Seq(person))
+        document.rootItems(URI("http://example.org/cat")) must not contain(person)
+      }
+  
+      "find items based on item type" >> {
+        val document = MicrodataDocument(Seq(person, person))
+        document.rootItems(URI("http://example.org/person")) must haveSize(2)
+      }
+  
+      "ignore nested items" >> {
+        val organisation = MicrodataItem(
+          itemtype   = Some(URI("http://example.org/org")),
+          properties = Seq("people" -> person)
+        )
+        val document = MicrodataDocument(Seq(organisation))
+  
+        document.rootItems(URI("http://example.org/person")) must not contain(person)
+      }
     }
 
   }

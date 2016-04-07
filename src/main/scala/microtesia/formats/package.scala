@@ -101,8 +101,8 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
     def convertRootsTo[T](itemtype: URI)(implicit format: MicrodataFormat[T]): Try[Seq[T]] = {
 
       def matchesItemtype(item: MicrodataItem) = item.itemtype.filter { _ == itemtype }.isDefined
- 
-      document.items
+
+      document.rootItems
         .filter{ matchesItemtype }
         .map { _.convertTo[T] }
         .sequence

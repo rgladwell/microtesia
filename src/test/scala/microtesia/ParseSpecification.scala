@@ -24,7 +24,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must be empty }
+      microdata must beDocument{ _.rootItems must be empty }
     }
 
     "parse top-level microdata item and" >> {
@@ -36,17 +36,17 @@ object ParseSpecification extends Specification with MicrodataMatchers {
       val microdata = parseMicrodata(html)
 
       "return item" >> {
-        microdata must beDocument{ _.items must contain(beAnInstanceOf[MicrodataItem]) }
+        microdata must beDocument{ _.rootItems must contain(beAnInstanceOf[MicrodataItem]) }
       }
 
       "return item name" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must haveProperty("name" -> MicrodataString("Elizabeth"))
         )}
       }
 
       "not return item type" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) => item.itemtype must beNone) }
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) => item.itemtype must beNone) }
       }
 
     }
@@ -65,7 +65,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain(beAnInstanceOf[MicrodataItem]).exactly(2.times) }
+      microdata must beDocument{ _.rootItems must contain(beAnInstanceOf[MicrodataItem]).exactly(2.times) }
 
     }
 
@@ -77,7 +77,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must haveProperty("name" -> MicrodataString("Elizabeth"))
       )}
 
@@ -93,13 +93,13 @@ object ParseSpecification extends Specification with MicrodataMatchers {
       val microdata = parseMicrodata(html)
 
       "for image sources" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must haveProperty("image" -> MicrodataLink(URI("google-logo.png")))
         )}
       }
 
       "for hyperlink references" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must haveProperty("url" -> MicrodataLink(URI("http://google.com")))
         )}
       }
@@ -114,7 +114,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must haveProperty("product-id" -> MicrodataString("9678AOU879"))
       )}
 
@@ -128,7 +128,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must haveProperty("ratingValue" -> MicrodataString("3.5"))
       )}
 
@@ -142,7 +142,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must haveProperty("birthday" -> MicrodataString("2009-05-10"))
       )}
 
@@ -159,17 +159,17 @@ object ParseSpecification extends Specification with MicrodataMatchers {
       val microdata = parseMicrodata(html)
 
       "as a property" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) => item.properties must haveKey("band")) }
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) => item.properties must haveKey("band")) }
       }
 
       "as an item" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must havePropertyMatching("band" -> beAnInstanceOf[MicrodataItem])
         )}
       }
 
       "with nested properties" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must havePropertyMatching("band" -> beLike {
             case subitem: MicrodataItem => subitem.properties must haveProperty("name" -> MicrodataString("Jazz Band"))
           })
@@ -177,7 +177,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
       }
 
       "without properties from parent item" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must not(havePropertyMatching("band" -> beLike {
             case subitem: MicrodataItem => subitem.properties must haveProperty("name" -> MicrodataString("Amanda"))
           }))
@@ -198,7 +198,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must haveProperty("flavor" -> MicrodataString("Lemon sorbet"))
           and haveProperty("flavor" -> MicrodataString("Apricot sorbet"))
       )}
@@ -212,7 +212,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must haveProperty("favorite-color" -> MicrodataString("orange"))
           and haveProperty("favorite-fruit" -> MicrodataString("orange"))
       )}
@@ -226,7 +226,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.itemtype must beSome(URI("http://example.org/animals#cat"))
       )}
     }
@@ -239,7 +239,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must havePropertyMatching("owner" -> beLike {
           case subitem: MicrodataItem => subitem.itemtype must beSome(URI("http://example.org/animals#person"))
         })
@@ -260,7 +260,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.id must beSome(URI("urn:isbn:0-330-34032-8"))
       )}
     }
@@ -282,7 +282,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       val microdata = parseMicrodata(html)
 
-      microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+      microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
         item.properties must havePropertyMatching("owner" -> beLike {
           case subitem: MicrodataItem => subitem.id must beSome(URI("urn:isbn:0-330-34032-8"))
         })
@@ -324,19 +324,19 @@ object ParseSpecification extends Specification with MicrodataMatchers {
       val microdata = parseMicrodata(html)
 
       "properties" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must haveProperty("name" -> MicrodataString("Amanda"))
         )}
       }
 
       "nested item" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must havePropertyMatching("band" -> beAnInstanceOf[MicrodataItem])
         )}
       }
 
       "nested item properties" >> {
-        microdata must beDocument{ _.items must contain((item: MicrodataItem) =>
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
           item.properties must havePropertyMatching("band" -> beLike {
             case subitem: MicrodataItem => subitem.properties must haveProperty("size" -> MicrodataString("12"))
           })
