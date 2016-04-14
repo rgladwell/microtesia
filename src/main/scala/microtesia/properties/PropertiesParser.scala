@@ -24,7 +24,7 @@ private[microtesia] trait PropertiesParser[N] {
                             )
       }
 
-    element match {
+    val properties = element match {
 
       case e if e.hasAttr("itemprop") => for {
                                            names <- validatePropertyNames(e.attr("itemprop"))
@@ -33,12 +33,19 @@ private[microtesia] trait PropertiesParser[N] {
                                            names.map{ MicrodataProperty(_, value) }
                                          )
 
-      case _                          => element
-                                           .childMap { parseProperties( _ ) }
-                                           .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
+      case _                          => Success(Nil)
 
     }
 
+    concat(properties, element
+                         .childMap { parseProperties( _ ) }
+                         .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _))
+  }
+
+  private def concat[A](left: Try[Seq[A]], right: Try[Seq[A]]): Try[Seq[A]] = (left, right) match {
+    case (Success(l), Success(r)) => Success(l ++ r)
+    case (Failure(l), _)          => left
+    case (_,          Failure(r)) => right
   }
 
 }

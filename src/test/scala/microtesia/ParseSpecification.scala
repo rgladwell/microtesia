@@ -355,6 +355,30 @@ object ParseSpecification extends Specification with MicrodataMatchers {
 
       Await.result(microdata, 1.second) must not(throwA[Exception])
     }
+
+    "parse nested properties and" >> {
+
+      val html = """<div itemscope>
+                      <p>My name is
+                      <span itemprop="name"><span itemprop="first-name">Elizabeth</span> <span itemprop="given-name">Warren</span></span>.
+                      </p>
+                    </div>"""
+
+      val microdata = parseMicrodata(html)
+
+      "return property ignoring nested property markup" >> {
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
+          item.properties must haveProperty("name" -> MicrodataString("Elizabeth Warren"))
+        )}
+      }
+
+      "return nested properties" >> {
+        microdata must beDocument{ _.rootItems must contain((item: MicrodataItem) =>
+          item.properties must haveProperty("given-name" -> MicrodataString("Warren"))
+        )}
+      }
+
+    }
   }
 
 }
