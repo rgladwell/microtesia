@@ -8,7 +8,7 @@ import scala.util.{Success, Try}
 
 private class TrySequence[A](seq: Seq[Try[A]]) {
 
-  def sequence: Try[Seq[A]] = traverse[Seq[A]](Nil)( _ +: _)
+  def sequence: Try[Seq[A]] = traverse[Seq[A]](Nil)( _ +: _ )
 
   def traverse[B](init: B)(bop : (A, B) => B): Try[B] =
     seq.foldRight(Success(init): Try[B]) {
