@@ -59,16 +59,19 @@ scala&gt; <span class="kw">import</span> formats._
 scala&gt; <span class="kw">import</span> java.time._
 <span class="kw">import</span> java.time._
 
+scala&gt; <span class="kw">import</span> scala.util.{Failure, Success, Try}
+<span class="kw">import</span> scala.util.{Failure, Success, Try}
+
 scala&gt; <span class="kw">implicit</span> <span class="kw">val</span> dateFormat = <span class="kw">new</span> MicrodataFormat[LocalDate] {
-  <span class="kw">override</span> <span class="kw">def</span> read(microdata: MicrodataValue): LocalDate = microdata <span class="kw">match</span> {
-    <span class="kw">case</span> MicrodataString(value)  <span class="kw">=&gt;</span> LocalDate.parse(value)
-    <span class="kw">case</span> other                   <span class="kw">=&gt;</span> <span class="kw">throw</span> CannotConvert(classOf[LocalDate], other)
-  }
-}
+     |  <span class="kw">override</span> <span class="kw">def</span> read(microdata: MicrodataValue): Try[LocalDate] = microdata <span class="kw">match</span> {
+     |    <span class="kw">case</span> MicrodataString(value)  <span class="kw">=&gt;</span> Success(LocalDate.parse(value))
+     |    <span class="kw">case</span> other                   <span class="kw">=&gt;</span> Failure(CannotConvert(classOf[LocalDate], other))
+     |  }
+     | }
 dateFormat: microtesia.formats.MicrodataFormat[java.time.LocalDate] = $anon$1@<span class="num">4</span>fa4e3b6
 
 scala&gt; MicrodataString(<span class="lit">"2016-01-01"</span>).convertTo[LocalDate]
-res0: java.time.LocalDate = <span class="num">2016</span>-<span class="num">01</span>-<span class="num">01</span></pre></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+res0: Try[java.time.LocalDate] = Success(<span class="num">2016</span>-<span class="num">01</span>-<span class="num">01</span>)</pre></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@implicitNotFound</span><span class="args">(<span>
       
       <span class="defval" name="&quot;Cannot find MicrodataFormat type class for ${T}&quot;">...</span>

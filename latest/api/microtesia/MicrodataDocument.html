@@ -51,8 +51,8 @@
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Representation of a document containing microdata mark-up. Returned by the
 <a href="package.html#parseMicrodata(input:java.io.InputStream)(implicitc:scala.concurrent.ExecutionContext):scala.concurrent.Future[microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parseMicrodata">parseMicrodata</a> function. A <a href="" class="extype" name="microtesia.MicrodataDocument">MicrodataDocument</a> can contain multiple
-<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a> instances which can be accessed via the <code>items</code> property
-as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span class="kw">=&gt;</span> println(m.itemtype) }
+<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a> instances which can be accessed via the <code>rootItems</code> property
+as follows:</p><pre>scala&gt; document.rootItems.foreach{ (m: MicrodataItem) <span class="kw">=&gt;</span> println(m.itemtype) }
 <span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie)</span></pre></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -229,23 +229,6 @@ as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span c
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="microtesia.MicrodataDocument#findItems" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="findItems(itemtype:java.net.URI):Seq[microtesia.MicrodataItem]"></a>
-      <a id="findItems(URI):Seq[MicrodataItem]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">findItems</span><span class="params">(<span name="itemtype">itemtype: <span class="extype" name="java.net.URI">URI</span></span>)</span><span class="result">: <span class="extype" name="scala.collection.Seq">Seq</span>[<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataDocument@findItems(itemtype:java.net.URI):Seq[microtesia.MicrodataItem]" title="Permalink" target="_top">
-        <img src="../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      <p class="shortcomment cmt">Utility method to help collect items by their type URI within a document.</p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <a id="getClass():Class[_]"></a>
@@ -281,22 +264,22 @@ as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span c
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="microtesia.MicrodataDocument#items" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="items:Seq[microtesia.MicrodataItem]"></a>
-      <a id="items:Seq[MicrodataItem]"></a>
+      <a id="items(itemtype:java.net.URI):Seq[microtesia.MicrodataItem]"></a>
+      <a id="items(URI):Seq[MicrodataItem]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">items</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>]</span>
+        <span class="name">items</span><span class="params">(<span name="itemtype">itemtype: <span class="extype" name="java.net.URI">URI</span></span>)</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../index.html#microtesia.MicrodataDocument@items:Seq[microtesia.MicrodataItem]" title="Permalink" target="_top">
+      <a href="../index.html#microtesia.MicrodataDocument@items(itemtype:java.net.URI):Seq[microtesia.MicrodataItem]" title="Permalink" target="_top">
         <img src="../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      
+      <p class="shortcomment cmt">Utility method to help collect all items by their type URI within a document.</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -348,6 +331,40 @@ as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span c
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="microtesia.MicrodataDocument#rootItems" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="rootItems(itemtype:java.net.URI):Seq[microtesia.MicrodataItem]"></a>
+      <a id="rootItems(URI):Seq[MicrodataItem]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rootItems</span><span class="params">(<span name="itemtype">itemtype: <span class="extype" name="java.net.URI">URI</span></span>)</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#microtesia.MicrodataDocument@rootItems(itemtype:java.net.URI):Seq[microtesia.MicrodataItem]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Utility method to help collect root items by their type URI within a document.</p>
+    </li><li name="microtesia.MicrodataDocument#rootItems" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="rootItems:Seq[microtesia.MicrodataItem]"></a>
+      <a id="rootItems:Seq[MicrodataItem]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">rootItems</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#microtesia.MicrodataDocument@rootItems:Seq[microtesia.MicrodataItem]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

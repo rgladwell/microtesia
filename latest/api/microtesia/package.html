@@ -49,10 +49,13 @@
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Documentation for the Microtesia microdata parsing library.</p><h4> Usage </h4><p>To use simply put the Microtesia API in scope and call the <a href="#parseMicrodata(input:java.io.InputStream)(implicitc:scala.concurrent.ExecutionContext):scala.concurrent.Future[microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parseMicrodata">parseMicrodata</a>
 function as follows:</p><pre>scala&gt; <span class="kw">import</span> microtesia._
-<span class="kw">import</span> microtesia._
+<span class="kw">import</span> microtesia.
+
+scala&gt; <span class="kw">import</span> scala.util.Try
+<span class="kw">import</span> scala.util.Try
 
 scala&gt; parseMicrodata(<span class="lit">""</span><span class="lit">"&lt;div itemscope itemtype="</span>http:<span class="cmt">//schema.org/Movie">&lt;h1 itemprop="name">Avatar&lt;/h1>&lt;/div>""")</span>
-res0: Try[microtesia.InvalidMicrodata,microtesia.MicrodataDocument] = Success(MicrodataDocument(<span class="std">List</span>(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),<span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie),None))))</span></pre></div><div class="toggleContainer block">
+res0: Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(<span class="std">List</span>(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),<span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie),None))))</span></pre></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
@@ -129,8 +132,8 @@ number of the failing HTML element.</p>
     </span>
       <p class="shortcomment cmt">Representation of a document containing microdata mark-up.</p><div class="fullcomment"><div class="comment cmt"><p>Representation of a document containing microdata mark-up. Returned by the
 <a href="#parseMicrodata(input:java.io.InputStream)(implicitc:scala.concurrent.ExecutionContext):scala.concurrent.Future[microtesia.MicrodataDocument]" class="extmbr" name="microtesia#parseMicrodata">parseMicrodata</a> function. A <a href="MicrodataDocument.html" class="extype" name="microtesia.MicrodataDocument">MicrodataDocument</a> can contain multiple
-<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a> instances which can be accessed via the <code>items</code> property
-as follows:</p><pre>scala&gt; document.items.foreach{ (m: MicrodataItem) <span class="kw">=&gt;</span> println(m.itemtype) }
+<a href="MicrodataItem.html" class="extype" name="microtesia.MicrodataItem">MicrodataItem</a> instances which can be accessed via the <code>rootItems</code> property
+as follows:</p><pre>scala&gt; document.rootItems.foreach{ (m: MicrodataItem) <span class="kw">=&gt;</span> println(m.itemtype) }
 <span class="std">Some</span>(http:<span class="cmt">//schema.org/Movie)</span></pre></div></div>
     </li><li name="microtesia.MicrodataItem" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="MicrodataItemextendsMicrodataValuewithProductwithSerializable"></a>
@@ -277,6 +280,9 @@ use to parse microdata as follows:</p><pre>scala&gt; <span class="kw">import</sp
 
 scala&gt; <span class="kw">import</span> formats._
 <span class="kw">import</span> formats._
+
+scala&gt; <span class="kw">import</span> scala.util.Try
+<span class="kw">import</span> scala.util.Try
 
 scala&gt; <span class="kw">case</span> <span class="kw">class</span> Person(name: <span class="std">String</span>, age: <span class="std">Int</span>, adult: <span class="std">Boolean</span>)
 defined <span class="kw">class</span> Person
