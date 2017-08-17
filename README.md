@@ -1,4 +1,4 @@
-# Microtesia [![Build Status](https://travis-ci.org/rgladwell/microtesia.svg)](https://travis-ci.org/rgladwell/microtesia) [![Codacy Badge](https://api.codacy.com/project/badge/1af50d2ea130484a918a44a5ce0d1ce0)](https://www.codacy.com/app/ricardo_3/microtesia) [ ![Download](https://api.bintray.com/packages/rgladwell/maven/microtesia/images/download.svg) ](https://bintray.com/rgladwell/maven/microtesia/_latestVersion) [![Dependencies](https://app.updateimpact.com/badge/702556651743481856/microtesia.svg?config=runtime)](https://app.updateimpact.com/latest/702556651743481856/microtesia)
+# Microtesia [![Build Status](https://travis-ci.org/rgladwell/microtesia.svg)](https://travis-ci.org/rgladwell/microtesia) [ ![Download](https://api.bintray.com/packages/rgladwell/maven/microtesia/images/download.svg) ](https://bintray.com/rgladwell/maven/microtesia/_latestVersion) [![Dependencies](https://app.updateimpact.com/badge/702556651743481856/microtesia.svg?config=runtime)](https://app.updateimpact.com/latest/702556651743481856/microtesia)
 
 [Microdata](http://www.w3.org/TR/microdata/) parsing library for
 Scala.

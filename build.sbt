@@ -25,10 +25,11 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2.1",
-  "org.specs2" %% "specs2-core" % "3.6.5" % "test",
-  "org.specs2" %% "specs2-mock" % "3.6.5" % "test",
-  "com.chuusai" %% "shapeless" % "2.3.0",
+  "org.ccil.cowan.tagsoup" % "tagsoup"     % "1.2.1",
+  "com.chuusai" %% "shapeless"             % "2.3.2",
+  "org.specs2" %% "specs2-core"            % "3.8.7" % "test",
+  "org.specs2" %% "specs2-scalacheck"      % "3.8.7" % "test",
+  "org.specs2" %% "specs2-mock"            % "3.6.5" % "test",
   "me.gladwell.urimplicit" %% "urimplicit" % "0.2" % "test"
 )
 
@@ -53,13 +54,11 @@ pomExtra := (
     </developer>
   </developers>)
 
-site.settings
+enablePlugins(GhpagesPlugin)
 
-ghpages.settings
+enablePlugins(SiteScaladocPlugin)
 
 git.remoteRepo := "git@github.com:rgladwell/microtesia.git"
-
-site.includeScaladoc()
 
 doctestDecodeHtmlEntities := true
 
