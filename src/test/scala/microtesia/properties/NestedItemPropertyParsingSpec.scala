@@ -6,12 +6,11 @@ package microtesia.properties
 
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
-import org.specs2.mock.Mockito
 import microtesia._
 import scala.xml._
 import scala.util.{Failure, Success, Try}
 
-object NestedItemPropertyParsingSpec extends Specification with Mockito {
+object NestedItemPropertyParsingSpec extends Specification {
 
   "NestedItemPropertyParsing should" >> {
 
@@ -25,33 +24,32 @@ object NestedItemPropertyParsingSpec extends Specification with Mockito {
 
       override def parseItems(element: Element[Node]) = ???
 
-      val mockParseItem = mock[(Element[Node]) => Try[MicrodataItem]]
-      override def parseItem(element: Element[Node]) = mockParseItem(element)
+      val mockParseItem: Try[MicrodataItem]
+      override def parseItem(element: Element[Node]) = mockParseItem
     }
 
-    class TestNestedItemPropertyParsing extends UndefinedPropertyParsing[Node]
-                                                   with NestedItemPropertyParsing[Node]
-                                                   with MockItemsParser
-                                                   with Scope
+    class TestNestedItemPropertyParsing(item: Try[MicrodataItem]) extends Scope {
+      val parser = new UndefinedPropertyParsing[Node]
+                         with NestedItemPropertyParsing[Node]
+                         with MockItemsParser {
 
-    "parse items as properties" in new TestNestedItemPropertyParsing {
-      // given
-      val html = XML.loadString("""<span itemprop="name" itemscope="true">Frank</span>""")
-      val mockItem = MicrodataItem(properties = Seq("testprop" -> MicrodataString("")))
-      mockParseItem.apply(any[Element[Node]]) returns Success(mockItem)
+        override val mockParseItem = item
 
-      // then
-      parseProperty(SaxElement(html,html)) must beSuccessfulTry(mockItem)
+      }
     }
 
-    "reports errors during sub-item parsing" in new TestNestedItemPropertyParsing {
-      // given
-      val html = XML.loadString("""<span itemprop="name" itemscope="true">Frank</span>""")
-      val error = InvalidMicrodata[Node]("INVALID", SaxElement(html,html))
-      mockParseItem.apply(any[Element[Node]]) returns Failure(error)
+    val testItem = MicrodataItem(properties = Seq("testprop" -> MicrodataString("")))
 
-      // then
-      parseProperty(SaxElement(html,html)) must beFailedTry(error)
+    "parse items as properties" in new TestNestedItemPropertyParsing(Success(testItem)) {
+      val html = XML.loadString("""<span itemprop="name" itemscope="true">Frank</span>""")
+      parser.parseProperty(SaxElement(html,html)) must beSuccessfulTry(testItem)
+    }
+
+    val html = XML.loadString("""<span itemprop="name" itemscope="true">Frank</span>""")
+    val error = InvalidMicrodata[Node]("INVALID", SaxElement(html,html))
+
+    "reports errors during sub-item parsing" in new TestNestedItemPropertyParsing(Failure(error)) {
+      parser.parseProperty(SaxElement(html,html)) must beFailedTry(error)
     }
 
   }

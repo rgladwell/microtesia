@@ -35,27 +35,33 @@ object CaseClassFormatSpec extends Specification {
             ("nicknames", MicrodataString("nick2"))
           )
         )
-  
-      case class Person(name: String, nicknames: Set[String])
-      val generic = LabelledGeneric[Person]
- 
+
       "Seq" in {
-        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== Seq("nick1", "nick2") }
+        case class PersonWithNicknames(name: String, nicknames: Seq[String])
+        val generic = LabelledGeneric[PersonWithNicknames]
+
+        caseClassFormat[PersonWithNicknames, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== Seq("nick1", "nick2") }
       }
-  
+
       "List" in {
-        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== List("nick1", "nick2") }
+        case class PersonWithNicknames(name: String, nicknames: List[String])
+        val generic = LabelledGeneric[PersonWithNicknames]
+
+        caseClassFormat[PersonWithNicknames, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== List("nick1", "nick2") }
       }
-  
+
       "Set" in {
-        caseClassFormat[Person, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== Set("nick1", "nick2") }
+        case class PersonWithNicknames(name: String, nicknames: Set[String])
+        val generic = LabelledGeneric[PersonWithNicknames]
+
+        caseClassFormat[PersonWithNicknames, generic.Repr].read(personWithMultipleNicknames) must beSuccessfulTry.like { case p => p.nicknames must_== Set("nick1", "nick2") }
       }
     }
 
     "convert optional attributes to" >> {
       case class Person(name: String, gender: Option[String])
       val generic = LabelledGeneric[Person]
- 
+
       "Some value if property exists" in {
         val personWithGender =
           MicrodataItem(
@@ -67,7 +73,7 @@ object CaseClassFormatSpec extends Specification {
 
         caseClassFormat[Person, generic.Repr].read(personWithGender) must beSuccessfulTry.like { case p => p.gender must beSome("female") }
       }
-  
+
       "None if property does not exist" in {
         val personWithoutGender = MicrodataItem(Seq(("name", MicrodataString("hello"))))
         caseClassFormat[Person, generic.Repr].read(personWithoutGender) must beSuccessfulTry.like { case p => p.gender must be(None) }
@@ -116,8 +122,7 @@ object CaseClassFormatSpec extends Specification {
 
       caseClassFormat[Person, generic.Repr].read(microdata) must beSuccessfulTry(Person("hello", Some(Person("Pally"))))
     }
- 
- 
+
   }
 
 }

@@ -1,6 +1,6 @@
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.5"
 
-crossScalaVersions := Seq("2.10.4", "2.11.8")
+crossScalaVersions := Seq("2.11.12", "2.12.5")
 
 organization := "me.gladwell.microtesia"
 
@@ -11,7 +11,7 @@ licenses := Seq("LGPL-3.0" -> url("http://www.gnu.org/licenses/lgpl-3.0.html"))
 homepage := Some(url("https://github.com/rgladwell/microtesia"))
 
 scalacOptions ++= Seq(
-  "-target:jvm-1.7",
+  "-target:jvm-1.8",
   "-encoding", "UTF-8",
   "-deprecation",
   "-feature",
@@ -26,11 +26,10 @@ scalacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.ccil.cowan.tagsoup" % "tagsoup"     % "1.2.1",
-  "com.chuusai" %% "shapeless"             % "2.3.2",
-  "org.specs2" %% "specs2-core"            % "3.8.7" % "test",
-  "org.specs2" %% "specs2-scalacheck"      % "3.8.7" % "test",
-  "org.specs2" %% "specs2-mock"            % "3.6.5" % "test",
-  "me.gladwell.urimplicit" %% "urimplicit" % "0.2" % "test"
+  "com.chuusai" %% "shapeless"             % "2.3.3",
+  "org.specs2" %% "specs2-core"            % "4.0.2" % "test",
+  "org.specs2" %% "specs2-scalacheck"      % "4.0.2" % "test",
+  "me.gladwell.urimplicit" %% "urimplicit" % "0.2.2" % "test"
 )
 
 libraryDependencies := {

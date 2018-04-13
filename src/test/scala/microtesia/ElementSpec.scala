@@ -1,4 +1,4 @@
-// Copyright 2015 Ricardo Gladwell.
+// Copyright 2015, 2018 Ricardo Gladwell.
 // Licensed under the GNU Lesser General Public License.
 // See the README.md file for more information.
 
@@ -7,9 +7,8 @@ package microtesia
 import org.specs2.mutable.Specification
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
 import scala.xml._
-import org.specs2.mock.Mockito
 
-object ElementSpec extends Specification with Mockito {
+object ElementSpec extends Specification {
 
   "Element should" >> {
 
@@ -70,19 +69,13 @@ object ElementSpec extends Specification with Mockito {
       element.doc.findById("test") must beNone
     }
 
-    trait TestFunction  {
-      def function(element: Element[Node]): Boolean
-    }
-
     "map children" >> {
       val document = XML.loadString("""<span class="name p-nickname"><div id="test"/></span>""")
-      val div = XML.loadString("""<div id="test"/>""")
       val element = SaxElement(document, document)
 
-      val mockTest = mock[TestFunction]
-      mockTest.function(SaxElement(div, document)) returns true
+      def function(element: Element[Node]) = element.attr("id") == Some("test")
 
-      element.childMap { mockTest.function( _ ) } must_== Seq(true)
+      element.childMap { function } must_== Seq(true)
     }
   }
 

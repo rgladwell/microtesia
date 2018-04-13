@@ -36,7 +36,7 @@ object EnrichedMicrodataDocumentSpec extends Specification {
               itemtype = Some(itemtype),
               properties = Seq(
                 "name" -> MicrodataString("Emily"),
-                "friend" -> 
+                "friend" ->
                   MicrodataItem(
                     itemtype = Some(itemtype),
                     properties = Seq(
