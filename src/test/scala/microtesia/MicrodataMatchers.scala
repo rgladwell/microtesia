@@ -5,7 +5,6 @@
 package microtesia
 
 import org.specs2.matcher.{Matcher, MatchResult, Matchers, MustMatchers}
-import scala.xml.Node
 import scala.util.Try
 
 trait MicrodataMatchers extends Matchers with MustMatchers {

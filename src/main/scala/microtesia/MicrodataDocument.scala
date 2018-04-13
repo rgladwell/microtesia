@@ -11,7 +11,7 @@ import java.net.URI
  * [[parseMicrodata]] function. A [[MicrodataDocument]] can contain multiple
  * [[MicrodataItem]] instances which can be accessed via the `rootItems` property
  * as follows:
- * 
+ *
  * {{{
  * scala> document.rootItems.foreach{ (m: MicrodataItem) => println(m.itemtype) }
  * Some(http://schema.org/Movie)

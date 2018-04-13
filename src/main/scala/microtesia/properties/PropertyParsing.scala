@@ -4,8 +4,6 @@
 
 package microtesia.properties
 
-import microtesia.MicrodataValue
-
 private[microtesia] abstract class PropertyParsing[N] {
 
   def parseProperty: PropertyParser[N]

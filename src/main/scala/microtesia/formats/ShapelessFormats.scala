@@ -63,10 +63,9 @@ trait ShapelessFormats {
    */
   implicit def caseClassFormat[T, Repr](
     implicit
-    generic: LabelledGeneric.Aux[T, Repr], 
-    format: Lazy[MicrodataFormat[Repr]], 
-    tpe: Typeable[T]
-  ) = 
+    generic: LabelledGeneric.Aux[T, Repr],
+    format: Lazy[MicrodataFormat[Repr]]
+  ) =
     new MicrodataFormat[T] {
       override def read(microdata: MicrodataValue): Try[T] = {
         for(hlist <- format.value.read(microdata)) yield generic.from(hlist)

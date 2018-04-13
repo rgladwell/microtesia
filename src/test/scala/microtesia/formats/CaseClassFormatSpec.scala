@@ -3,8 +3,6 @@ package microtesia.formats
 import org.specs2.mutable.Specification
 import microtesia._
 import shapeless._
-import labelled._
-import syntax.singleton._
 
 object CaseClassFormatSpec extends Specification {
 

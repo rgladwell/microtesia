@@ -5,7 +5,6 @@
 package microtesia.properties
 
 import scala.util.{Failure, Success, Try}
-import scala.xml.Node
 import microtesia.{Element, InvalidMicrodata, MicrodataProperty}
 
 private[microtesia] trait PropertiesParser[N] {

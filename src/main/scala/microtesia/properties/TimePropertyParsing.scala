@@ -4,7 +4,6 @@
 
 package microtesia.properties
 
-import scala.xml.Node
 import microtesia.{MicrodataString, Tag}
 import scala.util.Success
 

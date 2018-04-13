@@ -4,7 +4,6 @@
 
 package microtesia.formats
 
-import scala.language.existentials
 import microtesia.MicrodataValue
 
 case class CannotConvert(c: Class[_], value: MicrodataValue) extends Exception(s"cannot convert $value to $c")

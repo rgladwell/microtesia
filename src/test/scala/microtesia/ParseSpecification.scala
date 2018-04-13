@@ -1,3 +1,4 @@
+
 // Copyright 2015 Ricardo Gladwell.
 // Licensed under the GNU Lesser General Public License.
 // See the README.md file for more information.
@@ -6,8 +7,6 @@ package microtesia
 
 import org.specs2.mutable.Specification
 import urimplicit._
-import scala.xml.Node
-import scala.io.Source
 import java.io.ByteArrayInputStream
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -57,7 +56,7 @@ object ParseSpecification extends Specification with MicrodataMatchers {
                       <div itemscope>
                         <p>My name is <span itemprop="name">Elizabeth</span>.</p>
                       </div>
-  
+
                       <div itemscope>
                         <p>My <em>name</em> is <span itemprop="name">Daniel</span>.</p>
                       </div>
