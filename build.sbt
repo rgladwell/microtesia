@@ -41,10 +41,6 @@ libraryDependencies := {
 }
 
 pomExtra := (
-  <scm>
-    <url>git@github.com:rgladwell/microtesia.git</url>
-    <connection>scm:git:git@github.com:rgladwell/microtesia.git</connection>
-  </scm>
   <developers>
     <developer>
       <id>rgladwell</id>
