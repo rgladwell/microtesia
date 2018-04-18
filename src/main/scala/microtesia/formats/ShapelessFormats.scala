@@ -48,7 +48,7 @@ trait ShapelessFormats {
       }
 
       private def read(item: MicrodataItem) = {
-        val properties = item(key.value.name)
+        val properties = (item \ key.value.name).results
         for {
           head <- mfh.value.read(properties)
           tail <- mft.value.read(item)

@@ -35,7 +35,7 @@ object MicrodataValueSpec extends Specification {
       val items = Seq(MicrodataItem(properties = Seq("name" -> MicrodataString("test"))))
 
       val names =
-        for { 
+        for {
           MicrodataItem(properties, _, _) <- items
           MicrodataProperty("name", MicrodataString(string)) <- properties
         } yield string
@@ -61,19 +61,67 @@ object MicrodataValueSpec extends Specification {
       names must contain("test2")
     }
 
-    "retrieve item properties" >> {
+    "query item properties" >> {
       val items = MicrodataItem(Seq("name" -> MicrodataString("test")))
-      items("name") must_== Seq(MicrodataString("test"))
+      (items \ "name" results) must_== Seq(MicrodataString("test"))
     }
 
-    "retrieve multiple item property" >> {
+    "query multiple item property" >> {
       val items = MicrodataItem(Seq("name" -> MicrodataString("test"), "name" -> MicrodataString("test2")))
-      items("name") must_== Seq(MicrodataString("test"), MicrodataString("test2"))
+      (items \ "name" results) must_== Seq(MicrodataString("test"), MicrodataString("test2"))
     }
 
     "do not retrieve non-existent item property" >> {
       val items = MicrodataItem(Seq())
-      items("name") must be empty
+      (items \ "name" results) must be empty
+    }
+
+    "query nested item properties" >> {
+      val item =
+        MicrodataItem(
+          Seq("subitem" ->
+            MicrodataItem(
+              Seq("name" -> MicrodataString("test name"))
+            )
+          )
+        )
+
+      val results: Seq[MicrodataValue] = (item \ "subitem" \ "name").results
+      results must_== Seq(MicrodataString("test name"))
+    }
+
+    "query nested item properties across muliple trees" >> {
+      val item =
+        MicrodataItem(
+          Seq("subitem" ->
+            MicrodataItem(
+              Seq("name" -> MicrodataString("test name"))
+            ),
+            "subitem" ->
+            MicrodataItem(
+              Seq("name" -> MicrodataString("test name 2"))
+            )
+          )
+        )
+
+      (item \ "subitem" \ "name" results) must_== Seq(MicrodataString("test name"), MicrodataString("test name 2"))
+    }
+
+    "reucursively query nested item properties" >> {
+      val item =
+        MicrodataItem(
+          Seq("subitem" ->
+            MicrodataItem(
+              Seq("subsubitem" ->
+                MicrodataItem(
+                  Seq("name" -> MicrodataString("test name"))
+                )
+              )
+            )
+          )
+        )
+
+      (item \\ "name").results must_== Seq(MicrodataString("test name"))
     }
 
   }

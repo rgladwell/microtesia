@@ -6,10 +6,10 @@ Scala.
 To install add the following line to your SBT configuration:
 
 ```
-libraryDependencies += "me.gladwell.microtesia" %% "microtesia" % "0.3"
+libraryDependencies += "me.gladwell.microtesia" %% "microtesia" % "0.5.0"
 ```
 
-To use simply put the Microtesia API in scope and call the `parse`
+To use simply put the Microtesia API in scope and call the `parseMicrodata`
 method as follows:
 
 ```scala
@@ -43,6 +43,18 @@ res1: List[String] = List(Brian)
 ```
 
 See [MicrodataValueSpec.scala](https://github.com/rgladwell/microtesia/blob/master/src/test/scala/microtesia/MicrodataValueSpec.scala) for more examples of microdata for-comprehensions.
+
+You can also query microdata using an XPath-like syntax:
+
+```scala
+scala> import microtesia._
+import microtesia._
+
+scala> val item = MicrodataItem(properties = Seq(("name", MicrodataString("Brian"))))
+
+scala> item \ "name"
+res1: MicrodataQuery = QueryResults(List(MicrodataString(Brian)))
+```
 
 ## Readers
 
@@ -91,4 +103,4 @@ You should have received a copy of the GNU Lesser General Public
 License along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
-Copyright 2015-2016 [Ricardo Gladwell](http://gladwell.me).
+Copyright 2015-2018 [Ricardo Gladwell](http://gladwell.me).
