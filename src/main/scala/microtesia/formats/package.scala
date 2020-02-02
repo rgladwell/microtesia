@@ -92,7 +92,7 @@ package object formats extends SimpleTypeFormats with RichTypeFormats with Colle
      * defined class Person
      * 
      * scala> val document = parseMicrodata("""&lt;div itemscope itemtype="http://example.org/person">&lt;h1 itemprop="name">Person&lt;/h1>&lt;/div>""").get
-     * document: scala.util.Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArrayBuffer((name,MicrodataString(Avatar))),Some(http://example.org/person),None))))
+     * document: scala.util.Try[microtesia.MicrodataDocument] = Success(MicrodataDocument(List(MicrodataItem(ArraySeq((name,MicrodataString(Avatar))),Some(http://example.org/person),None))))
      * 
      * scala> document.convertRootsTo[Person](new java.net.URI("http://example.org/person"))
      * res0: scala.util.Try[Seq[Person]] = Success(List(Person(Person)))

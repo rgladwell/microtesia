@@ -46,12 +46,12 @@ object ItemsParserSpec extends Specification {
 
     "parse items" in new TestSaxItemsParser {
       val html = XML.loadString("""<span itemscope="true">Frank</span>""")
-      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain(MicrodataItem(properties = testProperties)))
+      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain[MicrodataItem](MicrodataItem(properties = testProperties)))
     }
 
     "parse items nested" in new TestSaxItemsParser {
       val html = XML.loadString("""<div><span itemscope="true">Frank</span></div>""")
-      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain(MicrodataItem(properties = testProperties)))
+      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain[MicrodataItem](MicrodataItem(properties = testProperties)))
     }
 
     "parse multiple items" in new TestSaxItemsParser {
@@ -63,12 +63,12 @@ object ItemsParserSpec extends Specification {
 
     "parse item types" in new TestSaxItemsParser {
       val html = XML.loadString("""<span itemscope="true" itemtype="http://example.org">Frank</span>""")
-      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain{ (i: MicrodataItem) => i.itemtype must beSome(URI("http://example.org")) })
+      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain[MicrodataItem]{ (i: MicrodataItem) => i.itemtype must beSome(URI("http://example.org")) })
     }
 
     "parse item ids" in new TestSaxItemsParser {
       val html = XML.loadString("""<span itemscope="true" itemid="http://example.org">Frank</span>""")
-      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain{ (i: MicrodataItem) => i.id must beSome(URI("http://example.org")) })
+      parser.parseItems(SaxElement(html, html)) must beSuccessfulTry(contain[MicrodataItem]{ (i: MicrodataItem) => i.id must beSome(URI("http://example.org")) })
     }
 
     val html = XML.loadString("""<span itemscope="true">Frank</span>""")
@@ -88,7 +88,7 @@ object ItemsParserSpec extends Specification {
       val reference = XML.loadString("""<p id="a">Name: <span itemprop="name">Amanda</span></p>""")
 
       // then
-      parser.parseItems(SaxElement(item, html)) must beSuccessfulTry(contain(MicrodataItem(properties = referenceProperties)))
+      parser.parseItems(SaxElement(item, html)) must beSuccessfulTry(contain[MicrodataItem](MicrodataItem(properties = referenceProperties)))
     }
 
     val aProperties = Seq("name" -> MicrodataString("Amanda"))
@@ -119,7 +119,7 @@ object ItemsParserSpec extends Specification {
       val item = XML.loadString("""<div itemscope="true" itemref="a b"></div>""")
 
       // then
-      parser.parseItems(SaxElement(item, html)) must beSuccessfulTry(contain(MicrodataItem(properties = Seq(("name" -> MicrodataString("Amanda")), ("name" -> MicrodataString("Barry"))))))
+      parser.parseItems(SaxElement(item, html)) must beSuccessfulTry(contain[MicrodataItem](MicrodataItem(properties = Seq(("name" -> MicrodataString("Amanda")), ("name" -> MicrodataString("Barry"))))))
     }
 
     val item = XML.loadString("""<div itemscope="true" itemref="a"></div>""")

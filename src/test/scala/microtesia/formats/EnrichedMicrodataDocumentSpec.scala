@@ -25,7 +25,7 @@ object EnrichedMicrodataDocumentSpec extends Specification {
           )
         )
 
-      document.convertRootsTo[Person](itemtype) should beSuccessfulTry.withValue{ contain (Person("Emily")) }
+      document.convertRootsTo[Person](itemtype) should beSuccessfulTry.withValue{ contain[Person](Person("Emily")) }
     }
 
     "ignore non-root items" >> {

@@ -54,7 +54,7 @@ object MicrodataValueSpec extends Specification {
 
       val names =
         for{
-          MicrodataItem(properties, Some(Uri("http://example.org", _)), _) <- items
+          MicrodataItem(properties, Some(URI("http://example.org", _)), _) <- items
           MicrodataProperty("name", MicrodataString(value)) <- properties
         } yield value
 

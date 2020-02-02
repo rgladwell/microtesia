@@ -7,8 +7,8 @@ scalacOptions ++= Seq(
 
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.4")
 
-resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+resolvers += "jgit-repo" at "https://download.eclipse.org/jgit/maven"
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2")
+addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3")
 
-addSbtPlugin("com.github.tkawachi" % "sbt-doctest" % "0.8.0")
+addSbtPlugin("com.github.tkawachi" % "sbt-doctest" % "0.9.6")

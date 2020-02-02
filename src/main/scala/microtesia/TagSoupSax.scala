@@ -20,7 +20,7 @@ private trait TagSoupSax extends Sax {
 
     var locator: org.xml.sax.Locator = _
 
-    abstract override def setDocumentLocator(locator: Locator) {
+    abstract override def setDocumentLocator(locator: Locator): Unit = {
       this.locator = locator
       super.setDocumentLocator(locator)
     }

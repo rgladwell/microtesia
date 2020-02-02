@@ -49,7 +49,7 @@ private[microtesia] trait ItemsParser[N] {
         }
         .traverse[Seq[MicrodataProperty]](Nil)(_ ++ _)
       }
-    .getOrElse(Success(Seq()))
+      .getOrElse(Success(Seq()))
 
   private def parseItemReference(id: String, element: Element[N]): Try[Seq[MicrodataProperty]] = {
     element.doc.findById(id).map { parseProperties(_) }.getOrElse(Success(Seq()))

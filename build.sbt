@@ -1,6 +1,6 @@
-scalaVersion := "2.12.5"
+scalaVersion := "2.13.1"
 
-crossScalaVersions := Seq("2.11.12", "2.12.5")
+crossScalaVersions := Seq("2.11.12", "2.12.5", "2.13.1")
 
 organization := "me.gladwell.microtesia"
 
@@ -17,9 +17,7 @@ scalacOptions ++= Seq(
   "-feature",
   "-unchecked",
   "-Xlint",
-  "-Ywarn-adapted-args",
   "-Ywarn-value-discard",
-  "-Ywarn-inaccessible",
   "-Ywarn-dead-code",
   "-Yrangepos"
 )
@@ -27,18 +25,11 @@ scalacOptions ++= Seq(
 libraryDependencies ++= Seq(
   "org.ccil.cowan.tagsoup" % "tagsoup"     % "1.2.1",
   "com.chuusai" %% "shapeless"             % "2.3.3",
-  "org.specs2" %% "specs2-core"            % "4.0.2" % "test",
-  "org.specs2" %% "specs2-scalacheck"      % "4.0.2" % "test",
-  "me.gladwell.urimplicit" %% "urimplicit" % "0.2.2" % "test"
+  "org.scala-lang.modules" %% "scala-xml"  % "1.2.0",
+  "org.specs2" %% "specs2-core"            % "4.6.0" % "test",
+  "org.specs2" %% "specs2-scalacheck"      % "4.6.0" % "test",
+  "me.gladwell.urimplicit" %% "urimplicit" % "0.3.0" % "test"
 )
-
-libraryDependencies := {
-  CrossVersion.partialVersion(scalaVersion.value) match {
-    case Some((2, scalaMajor)) if (scalaMajor >= 11) =>
-      libraryDependencies.value ++ Seq("org.scala-lang.modules" %% "scala-xml" % "1.0.5")
-    case _ => libraryDependencies.value
-  }
-}
 
 pomExtra := (
   <developers>

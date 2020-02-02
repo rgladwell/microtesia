@@ -1,4 +1,4 @@
-// Copyright 2015 Ricardo Gladwell.
+// Copyright 2015-2020 Ricardo Gladwell.
 // Licensed under the GNU Lesser General Public License.
 // See the README.md file for more information.
 
@@ -38,5 +38,6 @@ private case class SaxElement(private val element: Node, private val document: N
     element
       .child
       .map{ (child: Node) => f(SaxElement(child, document)) }
+      .toSeq
 
 }
